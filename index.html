@@ -90,6 +90,8 @@
     display: flex;
     align-items: center;
     gap: 8px;
+    direction: ltr;
+    unicode-bidi: embed;
   }
   .logo span { color: var(--primary); }
   .logo .dot { color: var(--accent); }
@@ -993,17 +995,12 @@
   .reveal-delay-4 { transition-delay: 0.4s; }
 
   /* ─── CONTENT SWITCH ─── */
-  [data-ar] { display: block; }
-  [data-en] { display: none; }
-  .en [data-ar] { display: none; }
-  .en [data-en] { display: block; }
-  .en [data-en].inline { display: inline; }
-  [data-ar].inline { display: inline; }
+  /* AR mode (default): hide all EN elements */
+  [data-en] { display: none !important; }
 
-  /* Inline spans */
-  span[data-ar], span[data-en] { display: inline; }
-  .en span[data-ar] { display: none; }
-  .en span[data-en] { display: inline; }
+  /* EN mode: hide all AR elements, reveal EN elements by removing none */
+  .en [data-ar] { display: none !important; }
+  .en [data-en] { display: revert !important; }
 
   /* ─── RESPONSIVE ─── */
   @media (max-width: 768px) {
