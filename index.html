@@ -862,6 +862,157 @@
     border-color: rgba(255,255,255,0.3);
     background: rgba(255,255,255,0.05);
   }
+
+  /* ─── WEEKLY PRICE FRAMING ─── */
+  .price-weekly-label {
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 6px;
+  }
+  .price-amount {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .price-amount-right {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .price-currency {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    line-height: 1.3;
+  }
+  .price-total {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    line-height: 1.3;
+  }
+
+  /* ─── GUARANTEE BADGE ─── */
+  .guarantee-badge {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(6,182,212,0.08);
+    border: 1px solid rgba(6,182,212,0.2);
+    border-radius: var(--radius-sm);
+    padding: 10px 14px;
+    margin-bottom: 24px;
+    font-size: 0.8rem;
+    color: #67E8F9;
+    line-height: 1.5;
+  }
+  .guarantee-badge-featured {
+    background: rgba(245,158,11,0.08);
+    border-color: rgba(245,158,11,0.25);
+    color: #FCD34D;
+  }
+  .guarantee-icon { font-size: 1rem; flex-shrink: 0; }
+
+  /* ─── PAYMENT METHODS ─── */
+  .payment-methods {
+    margin-top: 56px;
+    text-align: center;
+    padding-top: 40px;
+    border-top: 1px solid var(--border);
+  }
+  .payment-label {
+    font-size: 0.85rem;
+    color: var(--text-dim);
+    margin-bottom: 20px;
+    font-weight: 500;
+  }
+  .payment-icons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .pay-pill {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--dark2);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 8px 16px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    white-space: nowrap;
+    transition: border-color 0.2s;
+  }
+  .pay-pill:hover { border-color: rgba(255,255,255,0.2); }
+  .pay-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ─── FEATURED COURSE CARD ─── */
+  .course-card-featured {
+    border-color: rgba(124,58,237,0.3);
+    cursor: default;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .course-card-featured:hover {
+    border-color: rgba(124,58,237,0.5);
+    transform: translateY(-5px);
+    box-shadow: 0 20px 60px rgba(124,58,237,0.15);
+  }
+
+  /* ─── FREE LESSON STRIP ─── */
+  .free-lesson-strip {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(124,58,237,0.1);
+    border: 1px solid rgba(124,58,237,0.25);
+    border-radius: var(--radius-sm);
+    padding: 12px 14px;
+    margin-bottom: 16px;
+  }
+  .free-lesson-icon { font-size: 1.2rem; flex-shrink: 0; }
+  .free-lesson-title {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--primary-light);
+    line-height: 1.3;
+  }
+  .free-lesson-sub {
+    font-size: 0.73rem;
+    color: var(--text-dim);
+    margin-top: 2px;
+    line-height: 1.3;
+  }
+  .free-lesson-btn {
+    margin-inline-start: auto;
+    background: var(--primary);
+    color: white;
+    padding: 7px 14px;
+    border-radius: 100px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: all 0.2s;
+    font-family: inherit;
+  }
+  .free-lesson-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+  }
   .btn-price-solid {
     background: var(--primary);
     color: white;
@@ -1235,6 +1386,155 @@
     .ar .wa-float { right: 16px; bottom: 20px; }
     .en .wa-float { left: 16px; bottom: 20px; }
   }
+
+  /* ─── PHONE CAPTURE SECTION ─── */
+  .capture-section {
+    background: var(--dark);
+    padding: 0 5%;
+    position: relative;
+    overflow: hidden;
+  }
+  .capture-inner {
+    background: linear-gradient(135deg, rgba(124,58,237,0.12), rgba(245,158,11,0.06));
+    border: 1px solid rgba(124,58,237,0.25);
+    border-radius: var(--radius-lg);
+    padding: 56px 52px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .capture-inner::before {
+    content: '';
+    position: absolute;
+    width: 300px; height: 300px;
+    background: var(--primary);
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.06;
+    top: -80px;
+    pointer-events: none;
+  }
+  .ar .capture-inner::before { right: -80px; }
+  .en .capture-inner::before { left: -80px; }
+
+  .capture-badge {
+    display: inline-flex;
+    align-items: center;
+    background: rgba(245,158,11,0.12);
+    border: 1px solid rgba(245,158,11,0.3);
+    color: #FCD34D;
+    padding: 5px 14px;
+    border-radius: 100px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    margin-bottom: 16px;
+    letter-spacing: 0.5px;
+  }
+  .capture-title {
+    font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+    font-weight: 900;
+    line-height: 1.2;
+    margin-bottom: 12px;
+    letter-spacing: -0.5px;
+  }
+  .ar .capture-title { letter-spacing: 0; }
+  .capture-sub {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+  }
+
+  .capture-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .phone-input-wrap {
+    display: flex;
+    align-items: center;
+    background: var(--dark2);
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: border-color 0.2s;
+  }
+  .phone-input-wrap:focus-within {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(124,58,237,0.15);
+  }
+  .phone-prefix {
+    padding: 0 14px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    border-inline-end: 1px solid var(--border);
+    height: 54px;
+    display: flex;
+    align-items: center;
+    background: var(--surface);
+    flex-shrink: 0;
+    direction: ltr;
+  }
+  .phone-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 0 16px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text);
+    font-family: inherit;
+    height: 54px;
+    direction: ltr;
+  }
+  .phone-input::placeholder { color: var(--text-dim); font-weight: 400; }
+
+  .capture-btn {
+    width: 100%;
+    padding: 16px;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.25s;
+  }
+  .capture-btn:hover {
+    background: var(--primary-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(124,58,237,0.4);
+  }
+  .capture-btn.loading {
+    opacity: 0.7;
+    cursor: not-allowed;
+    transform: none;
+  }
+  .capture-btn.success {
+    background: #059669;
+    box-shadow: 0 10px 30px rgba(5,150,105,0.3);
+  }
+
+  .capture-note {
+    font-size: 0.75rem;
+    color: var(--text-dim);
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 768px) {
+    .capture-inner {
+      grid-template-columns: 1fr;
+      padding: 36px 28px;
+      gap: 28px;
+    }
+  }
 </style>
 </head>
 <body class="ar" id="body">
@@ -1273,7 +1573,7 @@
   <a href="#how" onclick="closeMobileNav()" data-en>How It Works</a>
   <a href="#pricing" onclick="closeMobileNav()" data-ar>الأسعار</a>
   <a href="#pricing" onclick="closeMobileNav()" data-en>Pricing</a>
-  <a href="https://wa.me/201554265712?text=السلام%20عليكم،%20عايز%20أعرف%20أكتر%20عن%20كورسات%20Yalla%20Level" target="_blank" class="btn-primary" onclick="closeMobileNav()" style="margin-top:16px;text-align:center;justify-content:center;">
+  <a href="https://wa.me/201000000000?text=السلام%20عليكم،%20عايز%20أعرف%20أكتر%20عن%20كورسات%20Yalla%20Level" target="_blank" class="btn-primary" onclick="closeMobileNav()" style="margin-top:16px;text-align:center;justify-content:center;">
     <span data-ar>ابدأ دلوقتي ⚡</span>
     <span data-en>Get Started ⚡</span>
   </a>
@@ -1301,7 +1601,7 @@
       <span data-en>Learn soft skills, level up your English, and develop yourself with 100% Egyptian content at prices that actually make sense.</span>
     </p>
     <div class="hero-cta">
-      <a href="https://wa.me/201554265712?text=السلام%20عليكم،%20عايز%20أعرف%20أكتر%20عن%20كورسات%20Yalla%20Level" target="_blank" class="btn-primary">
+      <a href="https://wa.me/201000000000?text=السلام%20عليكم،%20عايز%20أعرف%20أكتر%20عن%20كورسات%20Yalla%20Level" target="_blank" class="btn-primary">
         <span data-ar>ابدأ دلوقتي على واتساب</span>
         <span data-en>Start Now on WhatsApp</span>
         <svg class="arrow-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1337,6 +1637,40 @@
         <div class="stat-label" data-ar>بتبدأ من</div>
         <div class="stat-label" data-en>Starting From</div>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PHONE CAPTURE ─── -->
+<section class="capture-section">
+  <div class="capture-inner reveal">
+    <div class="capture-text">
+      <div class="capture-badge" data-ar>🎁 درس مجاني — بدون بطاقة</div>
+      <div class="capture-badge" data-en>🎁 Free Lesson — No Card Needed</div>
+      <h2 class="capture-title" data-ar>جرّب أول درس مجاناً دلوقتي</h2>
+      <h2 class="capture-title" data-en>Try Your First Lesson Free Right Now</h2>
+      <p class="capture-sub" data-ar>حط رقمك وهنبعتلك وصول فوري لأول درس من كورس الإنجليزي للبيزنس — مجاناً، من غير أي التزام.</p>
+      <p class="capture-sub" data-en>Drop your number and we'll send you instant access to the first Business English lesson — free, no strings attached.</p>
+    </div>
+    <div class="capture-form">
+      <div class="phone-input-wrap">
+        <span class="phone-prefix">+20</span>
+        <input
+          type="tel"
+          id="phone-input"
+          class="phone-input"
+          placeholder="1X XXXX XXXX"
+          maxlength="11"
+          inputmode="numeric"
+          pattern="[0-9]*"
+        />
+      </div>
+      <button class="capture-btn" onclick="submitPhone()">
+        <span data-ar>ابدأ مجاناً ⚡</span>
+        <span data-en>Start Free ⚡</span>
+      </button>
+      <p class="capture-note" data-ar>هنتواصل معاك على واتساب — مش هنزعجك بأي spam.</p>
+      <p class="capture-note" data-en>We'll reach out on WhatsApp — no spam, ever.</p>
     </div>
   </div>
 </section>
@@ -1443,7 +1777,7 @@
 
   <div class="courses-grid">
 
-    <a href="#" class="course-card reveal reveal-delay-1">
+    <div class="course-card course-card-featured reveal reveal-delay-1">
       <div class="course-thumb course-thumb-1">
         <span>🗣️</span>
         <span class="course-badge" data-ar>🔥 الأكثر مبيعاً</span>
@@ -1456,6 +1790,17 @@
         <h3 data-en>Business English: Zero to Pro</h3>
         <p data-ar>تكلّم إنجليزي في الشغل بثقة — الإيميلات، الاجتماعات، والعروض التقديمية.</p>
         <p data-en>Speak English at work with confidence — emails, meetings, and presentations.</p>
+        <div class="free-lesson-strip">
+          <span class="free-lesson-icon">🎁</span>
+          <div>
+            <div class="free-lesson-title" data-ar>الدرس الأول مجاناً</div>
+            <div class="free-lesson-title" data-en>First Lesson Free</div>
+            <div class="free-lesson-sub" data-ar>جرّب قبل ما تدفع — مفيش أي التزام</div>
+            <div class="free-lesson-sub" data-en>Try before you pay — zero commitment</div>
+          </div>
+          <a href="https://wa.me/201554265712?text=عايز%20أجرّب%20الدرس%20المجاني%20من%20كورس%20الإنجليزي%20للبيزنس" target="_blank" class="free-lesson-btn" data-ar onclick="event.stopPropagation()">جرّب دلوقتي</a>
+          <a href="https://wa.me/201554265712?text=I%20want%20to%20try%20the%20free%20lesson%20from%20Business%20English" target="_blank" class="free-lesson-btn" data-en onclick="event.stopPropagation()">Try Now</a>
+        </div>
         <div class="course-meta">
           <div class="course-info">
             <span data-ar>⏱ 8 ساعات</span><span data-en>⏱ 8 Hours</span>
@@ -1464,7 +1809,7 @@
           <div class="course-price">149 <del data-ar>299ج</del><del data-en>299 EGP</del></div>
         </div>
       </div>
-    </a>
+    </div>
 
     <a href="#" class="course-card reveal reveal-delay-2">
       <div class="course-thumb course-thumb-2">
@@ -1638,15 +1983,15 @@
     <div class="testi-card reveal">
       <div class="stars">★★★★★</div>
       <div class="testi-quote">"</div>
-      <p class="testi-text" data-ar>كورس الإنجليزي للبيزنس غيّر حياتي بجد. بعد شهر بقيت بكلّم العملاء الأجانب بثقة وعملت ترقية في الشغل.</p>
-      <p class="testi-text" data-en>The Business English course genuinely changed my life. After a month, I was speaking to foreign clients confidently and got a promotion at work.</p>
+      <p class="testi-text" data-ar>أنا كنت بخاف أكلم أي حد بالإنجليزي في الشغل وكنت بتجنب الاجتماعات. بعد كورس الإنجليزي للبيزنس بشهر، اتعينت في دور جديد فيه تواصل مع عملاء أجانب. ده مش مبالغة — ده اللي حصل فعلاً.</p>
+      <p class="testi-text" data-en>I used to avoid speaking English at work and skip meetings. One month after the Business English course, I got hired for a new role with foreign clients. That's not an exaggeration — that's what actually happened.</p>
       <div class="testi-author">
         <div class="testi-avatar" style="background:#7C3AED">ا.م</div>
         <div>
           <div class="testi-name" data-ar>أحمد محمود</div>
           <div class="testi-name" data-en>Ahmed Mahmoud</div>
-          <div class="testi-role" data-ar>موظف مبيعات — القاهرة</div>
-          <div class="testi-role" data-en>Sales Associate — Cairo</div>
+          <div class="testi-role" data-ar>موظف مبيعات، كان بيدور على شغل — القاهرة</div>
+          <div class="testi-role" data-en>Sales rep, was job hunting — Cairo</div>
         </div>
       </div>
     </div>
@@ -1654,15 +1999,15 @@
     <div class="testi-card reveal reveal-delay-1">
       <div class="stars">★★★★★</div>
       <div class="testi-quote">"</div>
-      <p class="testi-text" data-ar>الأسعار مش بتتصدق! كورسات بجودة عالية جداً وبمحتوى مفيد جداً، وكل حاجة بالمصري اللي بنفهمه. أنصح بيه جداً.</p>
-      <p class="testi-text" data-en>The prices are unbelievable! Very high quality courses with genuinely useful content, all in the Egyptian dialect we understand. Highly recommend.</p>
+      <p class="testi-text" data-ar>جربت كورسات تانية أغلى بكتير وما استفدتش. الفرق هنا إن المدرب فاهم إحنا مين — مش بيشرح وكأنه بيكلم ناس في أمريكا. الأمثلة من حياتنا، والكلام بالمصري، والسعر مش بيوجع.</p>
+      <p class="testi-text" data-en>I tried other courses way more expensive and got nothing. The difference here is the instructor actually gets us — not explaining like he's talking to Americans. The examples are from our lives, it's in Egyptian, and the price doesn't hurt.</p>
       <div class="testi-author">
         <div class="testi-avatar" style="background:#F59E0B;color:#1C1917">س.ك</div>
         <div>
           <div class="testi-name" data-ar>سارة كمال</div>
           <div class="testi-name" data-en>Sara Kamal</div>
-          <div class="testi-role" data-ar>خريجة حديثة — الإسكندرية</div>
-          <div class="testi-role" data-en>Recent Graduate — Alexandria</div>
+          <div class="testi-role" data-ar>خريجة حديثة، بتدور على أول وظيفة — الإسكندرية</div>
+          <div class="testi-role" data-en>Fresh grad, looking for first job — Alexandria</div>
         </div>
       </div>
     </div>
@@ -1670,15 +2015,15 @@
     <div class="testi-card reveal reveal-delay-2">
       <div class="stars">★★★★★</div>
       <div class="testi-quote">"</div>
-      <p class="testi-text" data-ar>كورس بناء الثقة بالنفس كان بالظبط اللي محتاجه. المحتوى عملي ومحسوس، والمدرب بيتكلم بأسلوب بنفهمه ومش بعيد عنا.</p>
-      <p class="testi-text" data-en>The self-confidence course was exactly what I needed. The content is practical and tangible, and the instructor speaks in a way we understand — not distant.</p>
+      <p class="testi-text" data-ar>كنت شايف إن مشكلتي في الثقة بالنفس مش حاجة كورس هيحلها. غلطت. الكورس ما كانش نظري — كان تمارين حقيقية وموقف حقيقي. دلوقتي بقدر أكلم ناس وأعمل بيزنس من غير ما أحس إني أصغر منهم.</p>
+      <p class="testi-text" data-en>I thought my confidence problem wasn't something a course could fix. I was wrong. It wasn't theory — real exercises, real situations. Now I can talk to people and do business without feeling small.</p>
       <div class="testi-author">
         <div class="testi-avatar" style="background:#06B6D4;color:#1C1917">م.ع</div>
         <div>
           <div class="testi-name" data-ar>مصطفى عبدالله</div>
           <div class="testi-name" data-en>Mostafa Abdallah</div>
-          <div class="testi-role" data-ar>رائد أعمال — المنصورة</div>
-          <div class="testi-role" data-en>Entrepreneur — Mansoura</div>
+          <div class="testi-role" data-ar>بيبني مشروعه الأول — المنصورة</div>
+          <div class="testi-role" data-en>Building his first business — Mansoura</div>
         </div>
       </div>
     </div>
@@ -1695,22 +2040,39 @@
       <span data-en>Small Investment, Big Transformation</span>
     </h2>
     <p class="section-sub" style="margin:0 auto">
-      <span data-ar>كل الخطط بتشمل كورسات عالية الجودة بأسعار منطقية تماماً.</span>
-      <span data-en>All plans include high-quality courses at completely reasonable prices.</span>
+      <span data-ar>كورسات عالية الجودة — بأسعار بتحترم جيبك.</span>
+      <span data-en>High quality courses — at prices that respect your wallet.</span>
     </p>
   </div>
+
   <div class="pricing-grid">
 
+    <!-- SINGLE COURSE -->
     <div class="price-card reveal">
       <div class="price-plan" data-ar>كورس واحد</div>
       <div class="price-plan" data-en>Single Course</div>
+
+      <div class="price-weekly-label" data-ar>يبدأ من</div>
+      <div class="price-weekly-label" data-en>Starting from</div>
       <div class="price-amount">
-        <span class="price-currency" data-ar>ج.م</span>
-        <span class="price-currency" data-en>EGP</span>
-        <span class="price-num">99+</span>
+        <span class="price-num">25</span>
+        <div class="price-amount-right">
+          <span class="price-currency" data-ar>ج.م / أسبوع</span>
+          <span class="price-currency" data-en>EGP / week</span>
+          <span class="price-total" data-ar>المجموع 99 ج.م</span>
+          <span class="price-total" data-en>Total 99 EGP</span>
+        </div>
       </div>
+
       <p class="price-desc" data-ar>اختار أي كورس وادفع مرة واحدة — وصول مدى الحياة.</p>
-      <p class="price-desc" data-en>Pick any course and pay once — lifetime access.</p>
+      <p class="price-desc" data-en>Pick any course, pay once — lifetime access.</p>
+
+      <div class="guarantee-badge">
+        <span class="guarantee-icon">🛡️</span>
+        <span data-ar>مش عاجبك؟ فلوسك ترجعلك خلال 3 أيام</span>
+        <span data-en>Not happy? Full refund within 3 days</span>
+      </div>
+
       <ul class="price-features">
         <li data-ar>وصول مدى الحياة للكورس</li>
         <li data-en>Lifetime access to the course</li>
@@ -1721,24 +2083,39 @@
         <li data-ar>دعم من المدرب</li>
         <li data-en>Instructor support</li>
       </ul>
-      <a href="https://wa.me/201554265712?text=عايز%20أسجّل%20في%20كورس%20منفرد%20على%20Yalla%20Level" target="_blank" class="btn-price btn-price-outline" data-ar>ابدأ الآن</a>
-      <a href="https://wa.me/201554265712?text=I%20want%20to%20enroll%20in%20a%20single%20course%20on%20Yalla%20Level" target="_blank" class="btn-price btn-price-outline" data-en>Start Now</a>
+
+      <a href="https://wa.me/201000000000?text=عايز%20أسجّل%20في%20كورس%20منفرد%20على%20Yalla%20Level" target="_blank" class="btn-price btn-price-outline" data-ar>ابدأ الآن</a>
+      <a href="https://wa.me/201000000000?text=I%20want%20to%20enroll%20in%20a%20single%20course%20on%20Yalla%20Level" target="_blank" class="btn-price btn-price-outline" data-en>Start Now</a>
     </div>
 
+    <!-- MONTHLY BUNDLE -->
     <div class="price-card featured reveal reveal-delay-1">
       <div class="featured-tag" data-ar>⭐ الأكثر طلباً</div>
       <div class="featured-tag" data-en>⭐ Most Popular</div>
       <div class="price-plan" data-ar>باقة شهرية</div>
       <div class="price-plan" data-en>Monthly Bundle</div>
+
+      <div class="price-weekly-label" data-ar>يساوي تقريباً</div>
+      <div class="price-weekly-label" data-en>That's roughly</div>
       <div class="price-amount">
-        <span class="price-currency" data-ar>ج.م</span>
-        <span class="price-currency" data-en>EGP</span>
-        <span class="price-num">249</span>
-        <span class="price-period" data-ar>/شهر</span>
-        <span class="price-period" data-en>/mo</span>
+        <span class="price-num">62</span>
+        <div class="price-amount-right">
+          <span class="price-currency" data-ar>ج.م / أسبوع</span>
+          <span class="price-currency" data-en>EGP / week</span>
+          <span class="price-total" data-ar>المجموع 249 ج.م / شهر</span>
+          <span class="price-total" data-en>Total 249 EGP / month</span>
+        </div>
       </div>
-      <p class="price-desc" data-ar>وصول غير محدود لكل الكورسات المسجّلة + خصم على الجلسات المباشرة.</p>
-      <p class="price-desc" data-en>Unlimited access to all recorded courses + discount on live sessions.</p>
+
+      <p class="price-desc" data-ar>وصول غير محدود لكل الكورسات + خصم على الجلسات المباشرة.</p>
+      <p class="price-desc" data-en>Unlimited access to all courses + discount on live sessions.</p>
+
+      <div class="guarantee-badge guarantee-badge-featured">
+        <span class="guarantee-icon">🛡️</span>
+        <span data-ar>مش عاجبك؟ فلوسك ترجعلك خلال 3 أيام</span>
+        <span data-en>Not happy? Full refund within 3 days</span>
+      </div>
+
       <ul class="price-features">
         <li data-ar>كل الكورسات المسجّلة بلا حدود</li>
         <li data-en>All recorded courses unlimited</li>
@@ -1751,22 +2128,37 @@
         <li data-ar>وصول للكوميونيتي الخاصة</li>
         <li data-en>Access to private community</li>
       </ul>
-      <a href="https://wa.me/201554265712?text=عايز%20أشترك%20في%20الباقة%20الشهرية%20على%20Yalla%20Level" target="_blank" class="btn-price btn-price-solid" data-ar>اشترك دلوقتي</a>
-      <a href="https://wa.me/201554265712?text=I%20want%20to%20subscribe%20to%20the%20Monthly%20Bundle%20on%20Yalla%20Level" target="_blank" class="btn-price btn-price-solid" data-en>Subscribe Now</a>
+
+      <a href="https://wa.me/201000000000?text=عايز%20أشترك%20في%20الباقة%20الشهرية%20على%20Yalla%20Level" target="_blank" class="btn-price btn-price-solid" data-ar>اشترك دلوقتي</a>
+      <a href="https://wa.me/201000000000?text=I%20want%20to%20subscribe%20to%20the%20Monthly%20Bundle%20on%20Yalla%20Level" target="_blank" class="btn-price btn-price-solid" data-en>Subscribe Now</a>
     </div>
 
+    <!-- ANNUAL BUNDLE -->
     <div class="price-card reveal reveal-delay-2">
       <div class="price-plan" data-ar>باقة سنوية</div>
       <div class="price-plan" data-en>Annual Bundle</div>
+
+      <div class="price-weekly-label" data-ar>يساوي تقريباً</div>
+      <div class="price-weekly-label" data-en>That's roughly</div>
       <div class="price-amount">
-        <span class="price-currency" data-ar>ج.م</span>
-        <span class="price-currency" data-en>EGP</span>
-        <span class="price-num">1999</span>
-        <span class="price-period" data-ar>/سنة</span>
-        <span class="price-period" data-en>/yr</span>
+        <span class="price-num">38</span>
+        <div class="price-amount-right">
+          <span class="price-currency" data-ar>ج.م / أسبوع</span>
+          <span class="price-currency" data-en>EGP / week</span>
+          <span class="price-total" data-ar>المجموع 1999 ج.م / سنة — وفّر 33%</span>
+          <span class="price-total" data-en>Total 1999 EGP / year — save 33%</span>
+        </div>
       </div>
-      <p class="price-desc" data-ar>وفّر 33% بالاشتراك السنوي — أفضل قرار لو جادّ في التطوير.</p>
-      <p class="price-desc" data-en>Save 33% with annual subscription — the best choice if you're serious about development.</p>
+
+      <p class="price-desc" data-ar>أفضل قرار لو جادّ في التطوير — وفّر 33% مقارنة بالشهري.</p>
+      <p class="price-desc" data-en>Best choice if you're serious — save 33% vs monthly.</p>
+
+      <div class="guarantee-badge">
+        <span class="guarantee-icon">🛡️</span>
+        <span data-ar>مش عاجبك؟ فلوسك ترجعلك خلال 3 أيام</span>
+        <span data-en>Not happy? Full refund within 3 days</span>
+      </div>
+
       <ul class="price-features">
         <li data-ar>كل مزايا الباقة الشهرية</li>
         <li data-en>Everything in Monthly bundle</li>
@@ -1777,11 +2169,42 @@
         <li data-ar>توصيات تعلم مخصصة ليك</li>
         <li data-en>Personalized learning recommendations</li>
       </ul>
-      <a href="https://wa.me/201554265712?text=عايز%20أشترك%20في%20الباقة%20السنوية%20على%20Yalla%20Level" target="_blank" class="btn-price btn-price-outline" data-ar>احجز مكانك</a>
-      <a href="https://wa.me/201554265712?text=I%20want%20to%20subscribe%20to%20the%20Annual%20Bundle%20on%20Yalla%20Level" target="_blank" class="btn-price btn-price-outline" data-en>Reserve Your Spot</a>
+
+      <a href="https://wa.me/201000000000?text=عايز%20أشترك%20في%20الباقة%20السنوية%20على%20Yalla%20Level" target="_blank" class="btn-price btn-price-outline" data-ar>احجز مكانك</a>
+      <a href="https://wa.me/201000000000?text=I%20want%20to%20subscribe%20to%20the%20Annual%20Bundle%20on%20Yalla%20Level" target="_blank" class="btn-price btn-price-outline" data-en>Reserve Your Spot</a>
     </div>
 
   </div>
+
+  <!-- PAYMENT METHODS -->
+  <div class="payment-methods reveal">
+    <p class="payment-label" data-ar>بتدفع بأي طريقة بتريحك</p>
+    <p class="payment-label" data-en>Pay with whatever works for you</p>
+    <div class="payment-icons">
+      <div class="pay-pill pay-vf">
+        <span class="pay-dot" style="background:#E60000"></span>
+        Vodafone Cash
+      </div>
+      <div class="pay-pill pay-fawry">
+        <span class="pay-dot" style="background:#F7941D"></span>
+        Fawry
+      </div>
+      <div class="pay-pill pay-instapay">
+        <span class="pay-dot" style="background:#5B2D8E"></span>
+        InstaPay
+      </div>
+      <div class="pay-pill pay-orange">
+        <span class="pay-dot" style="background:#FF6900"></span>
+        Orange Cash
+      </div>
+      <div class="pay-pill pay-card">
+        <span class="pay-dot" style="background:#A78BFA"></span>
+        <span data-ar>بطاقة بنكية</span>
+        <span data-en>Card</span>
+      </div>
+    </div>
+  </div>
+
 </section>
 
 <!-- ─── CTA BANNER ─── -->
@@ -1795,7 +2218,7 @@
       <span data-ar>انضم لآلاف المصريين اللي بيغيّروا حياتهم — ابدأ دلوقتي.</span>
       <span data-en>Join thousands of Egyptians who are changing their lives — start right now.</span>
     </p>
-    <a href="https://wa.me/201554265712?text=السلام%20عليكم،%20عايز%20أعرف%20أكتر%20عن%20كورسات%20Yalla%20Level" target="_blank" class="btn-white">
+    <a href="https://wa.me/201000000000?text=السلام%20عليكم،%20عايز%20أعرف%20أكتر%20عن%20كورسات%20Yalla%20Level" target="_blank" class="btn-white">
       <span data-ar>يلا نبدأ ⚡</span>
       <span data-en>Let's Go ⚡</span>
     </a>
@@ -1911,7 +2334,66 @@
   });
   heroObserver.observe(document.querySelector('.hero-stats'));
 
-  // ─── MOBILE NAV ───
+  // ─── PHONE CAPTURE ───
+  function submitPhone() {
+    const input = document.getElementById('phone-input');
+    const btn = document.querySelector('.capture-btn');
+    const body = document.getElementById('body');
+    const isAr = body.classList.contains('ar');
+
+    let phone = input.value.replace(/\D/g, '');
+
+    // Validate Egyptian mobile number
+    if (phone.length < 10 || phone.length > 11) {
+      input.style.borderColor = 'var(--primary)';
+      input.focus();
+      input.placeholder = isAr ? 'رقم غلط — حاول تاني' : 'Invalid number — try again';
+      setTimeout(() => {
+        input.placeholder = '1X XXXX XXXX';
+        input.style.borderColor = '';
+      }, 2000);
+      return;
+    }
+
+    // Remove leading 0 if present, prepend country code
+    if (phone.startsWith('0')) phone = phone.slice(1);
+    const fullNumber = '2' + phone; // Egypt: 20 + number without leading 0
+
+    const msg = isAr
+      ? 'السلام%20عليكم،%20عايز%20أجرّب%20الدرس%20المجاني%20على%20Yalla%20Level'
+      : 'Hi%2C%20I%20want%20to%20try%20the%20free%20lesson%20on%20Yalla%20Level';
+
+    // Show loading state
+    btn.classList.add('loading');
+    btn.innerHTML = isAr ? 'جاري الإرسال...' : 'Sending...';
+
+    setTimeout(() => {
+      btn.classList.remove('loading');
+      btn.classList.add('success');
+      btn.innerHTML = isAr ? '✓ تم! هنتواصل معاك دلوقتي' : '✓ Done! We\'ll reach out now';
+      input.value = '';
+
+      // Open WhatsApp with their number pre-filled as context
+      window.open(`https://wa.me/201554265712?text=${msg}%20-%20رقمي%3A%20%2B${fullNumber}`, '_blank');
+
+      setTimeout(() => {
+        btn.classList.remove('success');
+        btn.innerHTML = isAr
+          ? '<span data-ar>ابدأ مجاناً ⚡</span>'
+          : '<span data-en>Start Free ⚡</span>';
+      }, 4000);
+    }, 800);
+  }
+
+  // Allow Enter key on phone input
+  document.getElementById('phone-input').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') submitPhone();
+  });
+
+  // Numbers only input
+  document.getElementById('phone-input').addEventListener('input', function() {
+    this.value = this.value.replace(/\D/g, '');
+  });
   function openMobileNav() {
     document.getElementById('mobile-nav').classList.add('open');
     document.body.style.overflow = 'hidden';
@@ -1942,7 +2424,7 @@
 </script>
 
 <!-- ─── WHATSAPP FLOATING BUTTON ─── -->
-<a href="https://wa.me/201554265712?text=السلام%20عليكم،%20عايز%20أعرف%20أكتر%20عن%20كورسات%20Yalla%20Level" target="_blank" class="wa-float" id="wa-float">
+<a href="https://wa.me/201000000000?text=السلام%20عليكم،%20عايز%20أعرف%20أكتر%20عن%20كورسات%20Yalla%20Level" target="_blank" class="wa-float" id="wa-float">
   <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
   </svg>
