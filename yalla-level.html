@@ -1,0 +1,1708 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yalla Level | يلا ليفل</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Syne:wght@700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #FF3D00;
+    --primary-dark: #CC3100;
+    --primary-light: #FF6B3D;
+    --accent: #FFD600;
+    --accent-dark: #E6BF00;
+    --dark: #0E0E0E;
+    --dark2: #1A1A1A;
+    --dark3: #252525;
+    --surface: #1E1E1E;
+    --surface2: #2A2A2A;
+    --text: #F5F5F5;
+    --text-muted: #A0A0A0;
+    --text-dim: #666;
+    --border: rgba(255,255,255,0.08);
+    --radius: 16px;
+    --radius-sm: 10px;
+    --radius-lg: 24px;
+    font-size: 16px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'Cairo', sans-serif;
+    overflow-x: hidden;
+    line-height: 1.7;
+  }
+
+  body.en {
+    font-family: 'Space Grotesk', sans-serif;
+    direction: ltr;
+  }
+  body.ar {
+    font-family: 'Cairo', sans-serif;
+    direction: rtl;
+  }
+
+  /* ─── NOISE TEXTURE ─── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* ─── SCROLLBAR ─── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--dark); }
+  ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
+
+  /* ─── NAVBAR ─── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 900;
+    padding: 20px 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(14,14,14,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    transition: all 0.3s;
+  }
+
+  .logo {
+    font-family: 'Syne', 'Cairo', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: -0.5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .logo span { color: var(--primary); }
+  .logo .dot { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 36px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+
+  .nav-right {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .lang-toggle {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 8px 18px;
+    border-radius: 100px;
+    font-size: 0.82rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+    letter-spacing: 0.5px;
+  }
+  .lang-toggle:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+  }
+
+  .btn-nav {
+    background: var(--primary);
+    color: white;
+    padding: 10px 24px;
+    border-radius: 100px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    transition: all 0.2s;
+    font-family: inherit;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-nav:hover {
+    background: var(--primary-dark);
+    transform: translateY(-1px);
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 140px 5% 80px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+  }
+
+  .orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(80px);
+    opacity: 0.15;
+    animation: float 8s ease-in-out infinite;
+  }
+  .orb-1 { width: 600px; height: 600px; background: var(--primary); top: -200px; left: -150px; animation-delay: 0s; }
+  .orb-2 { width: 400px; height: 400px; background: var(--accent); top: 50%; right: -100px; animation-delay: -3s; }
+  .orb-3 { width: 300px; height: 300px; background: #7B2FFF; bottom: -100px; left: 30%; animation-delay: -5s; }
+
+  @keyframes float {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(30px, -20px) scale(1.05); }
+    66% { transform: translate(-20px, 10px) scale(0.97); }
+  }
+
+  .grid-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .hero-content { position: relative; z-index: 2; max-width: 900px; }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,61,0,0.12);
+    border: 1px solid rgba(255,61,0,0.3);
+    color: var(--primary-light);
+    padding: 8px 20px;
+    border-radius: 100px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    margin-bottom: 32px;
+    animation: fadeUp 0.6s ease both;
+    letter-spacing: 0.5px;
+  }
+  .hero-badge::before {
+    content: '';
+    width: 8px; height: 8px;
+    background: var(--primary);
+    border-radius: 50%;
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.3); }
+  }
+
+  h1 {
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    margin-bottom: 28px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  .ar h1 { letter-spacing: 0; line-height: 1.2; }
+
+  h1 .highlight {
+    color: var(--primary);
+    position: relative;
+    display: inline-block;
+  }
+  h1 .highlight::after {
+    content: '';
+    position: absolute;
+    bottom: 4px; left: 0; right: 0;
+    height: 4px;
+    background: var(--accent);
+    border-radius: 2px;
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: underline 0.8s 0.8s ease forwards;
+  }
+  .ar h1 .highlight::after { transform-origin: right; }
+  @keyframes underline { to { transform: scaleX(1); } }
+
+  .hero-sub {
+    font-size: clamp(1rem, 2.5vw, 1.25rem);
+    color: var(--text-muted);
+    max-width: 620px;
+    margin: 0 auto 48px;
+    font-weight: 400;
+    line-height: 1.8;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .hero-cta {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+
+  .btn-primary {
+    background: var(--primary);
+    color: white;
+    padding: 18px 40px;
+    border-radius: 100px;
+    font-size: 1rem;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.25s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
+  }
+  .btn-primary::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: white;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 16px 40px rgba(255,61,0,0.4); }
+  .btn-primary:hover::after { opacity: 0.1; }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--text);
+    padding: 18px 40px;
+    border-radius: 100px;
+    font-size: 1rem;
+    font-weight: 600;
+    border: 1.5px solid var(--border);
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.25s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .btn-secondary:hover {
+    border-color: rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.05);
+    transform: translateY(-3px);
+  }
+
+  .arrow-icon {
+    width: 20px; height: 20px;
+    transition: transform 0.2s;
+  }
+  .btn-primary:hover .arrow-icon { transform: translateX(4px); }
+  .ar .btn-primary:hover .arrow-icon { transform: translateX(-4px); }
+
+  .hero-stats {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 48px;
+    margin-top: 72px;
+    padding-top: 48px;
+    border-top: 1px solid var(--border);
+    animation: fadeUp 0.6s 0.4s ease both;
+    flex-wrap: wrap;
+  }
+
+  .stat { text-align: center; }
+  .stat-num {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: var(--text);
+    letter-spacing: -1px;
+    line-height: 1;
+  }
+  .stat-num span { color: var(--primary); }
+  .stat-label {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+  }
+
+  .stat-divider {
+    width: 1px;
+    height: 40px;
+    background: var(--border);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── MARQUEE ─── */
+  .marquee-section {
+    padding: 0;
+    overflow: hidden;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .marquee-track {
+    display: flex;
+    gap: 0;
+    animation: marquee 20s linear infinite;
+    width: max-content;
+  }
+  .ar .marquee-track { animation: marquee-rtl 20s linear infinite; }
+
+  .marquee-item {
+    padding: 18px 40px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    white-space: nowrap;
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    border-right: 1px solid var(--border);
+  }
+  .marquee-item .tag {
+    background: rgba(255,61,0,0.15);
+    color: var(--primary-light);
+    padding: 4px 12px;
+    border-radius: 100px;
+    font-size: 0.78rem;
+    font-weight: 700;
+  }
+  @keyframes marquee { to { transform: translateX(-50%); } }
+  @keyframes marquee-rtl { to { transform: translateX(50%); } }
+
+  /* ─── SECTIONS ─── */
+  section { padding: 100px 5%; }
+
+  .section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255,61,0,0.1);
+    border: 1px solid rgba(255,61,0,0.25);
+    color: var(--primary-light);
+    padding: 6px 16px;
+    border-radius: 100px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 900;
+    line-height: 1.15;
+    letter-spacing: -1px;
+    margin-bottom: 16px;
+  }
+  .ar .section-title { letter-spacing: 0; }
+  .section-sub {
+    font-size: 1rem;
+    color: var(--text-muted);
+    max-width: 520px;
+    line-height: 1.8;
+  }
+
+  /* ─── WHY US ─── */
+  .why-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-top: 60px;
+  }
+
+  .why-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 36px 32px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s;
+    cursor: default;
+  }
+  .why-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s;
+  }
+  .ar .why-card::before { transform-origin: right; }
+  .why-card:hover {
+    border-color: rgba(255,61,0,0.3);
+    transform: translateY(-4px);
+    background: var(--surface2);
+  }
+  .why-card:hover::before { transform: scaleX(1); }
+
+  .why-icon {
+    width: 56px; height: 56px;
+    background: rgba(255,61,0,0.12);
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.6rem;
+    margin-bottom: 24px;
+  }
+
+  .why-card h3 {
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .why-card p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.75;
+  }
+
+  /* ─── COURSES ─── */
+  .courses-section { background: var(--surface); }
+
+  .courses-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 48px;
+    flex-wrap: wrap;
+  }
+
+  .courses-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+
+  .course-card {
+    background: var(--dark2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    transition: all 0.3s;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  .course-card:hover {
+    border-color: rgba(255,61,0,0.35);
+    transform: translateY(-5px);
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+  }
+
+  .course-thumb {
+    height: 180px;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3.5rem;
+  }
+
+  .course-thumb-1 { background: linear-gradient(135deg, #1a0a0a, #3d1010); }
+  .course-thumb-2 { background: linear-gradient(135deg, #0a1a0a, #0d3320); }
+  .course-thumb-3 { background: linear-gradient(135deg, #0a0a1a, #101035); }
+  .course-thumb-4 { background: linear-gradient(135deg, #1a1500, #3d3200); }
+  .course-thumb-5 { background: linear-gradient(135deg, #1a0a12, #3d1025); }
+  .course-thumb-6 { background: linear-gradient(135deg, #0a1a1a, #103530); }
+
+  .course-badge {
+    position: absolute;
+    top: 14px;
+    background: var(--accent);
+    color: #000;
+    padding: 4px 14px;
+    border-radius: 100px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+  .ar .course-badge { right: 14px; }
+  .en .course-badge { left: 14px; }
+
+  .course-body { padding: 24px; }
+  .course-cat {
+    font-size: 0.75rem;
+    color: var(--primary-light);
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .course-card h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    line-height: 1.4;
+  }
+  .course-card p {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    line-height: 1.65;
+  }
+
+  .course-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 16px;
+    border-top: 1px solid var(--border);
+  }
+  .course-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.78rem;
+    color: var(--text-dim);
+  }
+  .course-price {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--accent);
+  }
+  .course-price del {
+    font-size: 0.75rem;
+    font-weight: 400;
+    color: var(--text-dim);
+    margin-inline-start: 4px;
+  }
+
+  /* ─── HOW IT WORKS ─── */
+  .steps-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0;
+    margin-top: 60px;
+    position: relative;
+  }
+
+  .step {
+    padding: 40px 32px;
+    position: relative;
+    text-align: center;
+  }
+  .step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    top: 60px;
+    width: 60%;
+    height: 1px;
+    background: linear-gradient(90deg, var(--primary), transparent);
+    z-index: 0;
+  }
+  .en .step:not(:last-child)::after { right: -30%; }
+  .ar .step:not(:last-child)::after { left: -30%; transform: scaleX(-1); }
+
+  .step-num {
+    width: 52px; height: 52px;
+    background: var(--primary);
+    color: white;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    font-weight: 900;
+    margin: 0 auto 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .step h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+  .step p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  /* ─── TESTIMONIALS ─── */
+  .testi-section { background: var(--dark); }
+
+  .testi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 20px;
+    margin-top: 60px;
+  }
+
+  .testi-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 32px 28px;
+    transition: border-color 0.3s;
+    position: relative;
+  }
+  .testi-card:hover { border-color: rgba(255,61,0,0.3); }
+
+  .testi-quote {
+    font-size: 2.5rem;
+    color: var(--primary);
+    line-height: 1;
+    margin-bottom: 16px;
+    font-family: Georgia, serif;
+  }
+
+  .testi-text {
+    font-size: 0.92rem;
+    color: var(--text-muted);
+    line-height: 1.8;
+    margin-bottom: 24px;
+  }
+
+  .testi-author {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .testi-avatar {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: var(--primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+  .testi-name {
+    font-size: 0.9rem;
+    font-weight: 700;
+  }
+  .testi-role {
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    margin-top: 2px;
+  }
+
+  .stars {
+    color: var(--accent);
+    font-size: 0.85rem;
+    letter-spacing: 2px;
+    margin-bottom: 14px;
+  }
+
+  /* ─── PRICING ─── */
+  .pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 60px;
+    max-width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .price-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 40px 36px;
+    position: relative;
+    transition: all 0.3s;
+  }
+  .price-card.featured {
+    border-color: var(--primary);
+    background: linear-gradient(160deg, rgba(255,61,0,0.08), var(--surface));
+  }
+
+  .featured-tag {
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--primary);
+    color: white;
+    padding: 6px 20px;
+    border-radius: 100px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+
+  .price-plan {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .price-amount {
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+    margin-bottom: 8px;
+  }
+  .price-currency {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-muted);
+  }
+  .price-num {
+    font-size: 3.5rem;
+    font-weight: 900;
+    letter-spacing: -2px;
+    line-height: 1;
+  }
+  .price-period {
+    font-size: 0.88rem;
+    color: var(--text-dim);
+  }
+
+  .price-desc {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin-bottom: 32px;
+    line-height: 1.65;
+  }
+
+  .price-features {
+    list-style: none;
+    margin-bottom: 36px;
+  }
+  .price-features li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.88rem;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--border);
+    color: var(--text-muted);
+  }
+  .price-features li:last-child { border-bottom: none; }
+  .price-features li::before {
+    content: '✓';
+    color: var(--primary);
+    font-weight: 700;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+
+  .btn-price {
+    width: 100%;
+    padding: 16px;
+    border-radius: 100px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.25s;
+    border: none;
+  }
+  .btn-price-outline {
+    background: transparent;
+    border: 1.5px solid var(--border);
+    color: var(--text);
+  }
+  .btn-price-outline:hover {
+    border-color: rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.05);
+  }
+  .btn-price-solid {
+    background: var(--primary);
+    color: white;
+  }
+  .btn-price-solid:hover {
+    background: var(--primary-dark);
+    box-shadow: 0 10px 30px rgba(255,61,0,0.4);
+  }
+
+  /* ─── CTA BANNER ─── */
+  .cta-banner {
+    margin: 0 5%;
+    background: linear-gradient(135deg, var(--primary) 0%, #FF6B3D 60%, #FFD600 100%);
+    border-radius: var(--radius-lg);
+    padding: 80px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-banner::before {
+    content: 'يلا ليفل';
+    position: absolute;
+    font-size: 12rem;
+    font-weight: 900;
+    color: rgba(255,255,255,0.06);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    pointer-events: none;
+    font-family: 'Cairo', sans-serif;
+  }
+
+  .cta-banner h2 {
+    font-size: clamp(1.8rem, 4vw, 2.8rem);
+    font-weight: 900;
+    color: white;
+    margin-bottom: 16px;
+    letter-spacing: -1px;
+    position: relative;
+    z-index: 1;
+  }
+  .ar .cta-banner h2 { letter-spacing: 0; }
+  .cta-banner p {
+    color: rgba(255,255,255,0.85);
+    margin-bottom: 40px;
+    font-size: 1rem;
+    position: relative;
+    z-index: 1;
+  }
+  .cta-banner .btn-white {
+    background: white;
+    color: var(--primary);
+    padding: 18px 48px;
+    border-radius: 100px;
+    font-size: 1rem;
+    font-weight: 800;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    transition: all 0.25s;
+    display: inline-block;
+    text-decoration: none;
+    position: relative;
+    z-index: 1;
+  }
+  .cta-banner .btn-white:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.25);
+  }
+
+  /* ─── FOOTER ─── */
+  footer {
+    background: var(--dark);
+    border-top: 1px solid var(--border);
+    padding: 60px 5% 30px;
+  }
+
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px;
+    margin-bottom: 48px;
+  }
+
+  .footer-brand p {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin-top: 16px;
+    line-height: 1.75;
+    max-width: 280px;
+  }
+
+  .footer-col h4 {
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 20px;
+  }
+  .footer-col ul { list-style: none; }
+  .footer-col li { margin-bottom: 10px; }
+  .footer-col a {
+    font-size: 0.88rem;
+    color: var(--text-dim);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-col a:hover { color: var(--text); }
+
+  .footer-bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 24px;
+    border-top: 1px solid var(--border);
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  /* ─── SCROLL ANIMATIONS ─── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* ─── CONTENT SWITCH ─── */
+  [data-ar] { display: block; }
+  [data-en] { display: none; }
+  .en [data-ar] { display: none; }
+  .en [data-en] { display: block; }
+  .en [data-en].inline { display: inline; }
+  [data-ar].inline { display: inline; }
+
+  /* Inline spans */
+  span[data-ar], span[data-en] { display: inline; }
+  .en span[data-ar] { display: none; }
+  .en span[data-en] { display: inline; }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .hero-stats { gap: 24px; }
+    .stat-divider { display: none; }
+    .cta-banner { padding: 50px 24px; }
+    .cta-banner::before { font-size: 5rem; }
+  }
+
+  @media (max-width: 520px) {
+    .footer-grid { grid-template-columns: 1fr; }
+    h1 { font-size: 2.5rem; }
+  }
+
+  /* Mobile menu toggle */
+  .menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    flex-direction: column;
+    gap: 5px;
+    padding: 6px;
+  }
+  .menu-btn span {
+    display: block;
+    width: 22px; height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+  }
+  @media (max-width: 768px) { .menu-btn { display: flex; } }
+</style>
+</head>
+<body class="ar" id="body">
+
+<!-- ─── NAV ─── -->
+<nav>
+  <a href="#" class="logo">
+    Yalla <span>Level</span><span class="dot">.</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#courses" data-ar>الكورسات</a><a href="#courses" data-en>Courses</a></li>
+    <li><a href="#why" data-ar>ليه إحنا</a><a href="#why" data-en>Why Us</a></li>
+    <li><a href="#how" data-ar>إزاي بيشتغل</a><a href="#how" data-en>How It Works</a></li>
+    <li><a href="#pricing" data-ar>الأسعار</a><a href="#pricing" data-en>Pricing</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="lang-toggle" onclick="toggleLang()" id="lang-btn">English</button>
+    <a href="#pricing" class="btn-nav">
+      <span data-ar>ابدأ دلوقتي</span>
+      <span data-en>Get Started</span>
+    </a>
+  </div>
+</nav>
+
+<!-- ─── HERO ─── -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="grid-bg"></div>
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span data-ar>🇪🇬 100% مصري — بأسعار تناسبك</span>
+      <span data-en>🇪🇬 100% Egyptian — Prices That Fit You</span>
+    </div>
+    <h1>
+      <span data-ar>وقت تعمل<br><span class="highlight">نقلة</span> في حياتك</span>
+      <span data-en>Time to Make Your<br><span class="highlight">Next Level</span> Move</span>
+    </h1>
+    <p class="hero-sub">
+      <span data-ar>تعلّم مهارات الـ soft skills، ارفع مستواك في الإنجليزي، وطوّر نفسك مع كورسات مصرية 100% بأسعار منطقية تماماً.</span>
+      <span data-en>Learn soft skills, level up your English, and develop yourself with 100% Egyptian content at prices that actually make sense.</span>
+    </p>
+    <div class="hero-cta">
+      <a href="#courses" class="btn-primary">
+        <span data-ar>اكتشف الكورسات</span>
+        <span data-en>Explore Courses</span>
+        <svg class="arrow-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </a>
+      <a href="#how" class="btn-secondary">
+        <span data-ar>إزاي بيشتغل؟</span>
+        <span data-en>How It Works</span>
+      </a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">+<span>5000</span></div>
+        <div class="stat-label" data-ar>طالب مسجّل</div>
+        <div class="stat-label" data-en>Enrolled Students</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <div class="stat-num"><span>20</span>+</div>
+        <div class="stat-label" data-ar>كورس متاح</div>
+        <div class="stat-label" data-en>Available Courses</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <div class="stat-num"><span>4.9</span>⭐</div>
+        <div class="stat-label" data-ar>متوسط التقييم</div>
+        <div class="stat-label" data-en>Average Rating</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <div class="stat-num"><span>99</span><span>ج.م</span></div>
+        <div class="stat-label" data-ar>بتبدأ من</div>
+        <div class="stat-label" data-en>Starting From</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── MARQUEE ─── -->
+<div class="marquee-section">
+  <div class="marquee-track" id="marquee">
+    <div class="marquee-item"><span class="tag" data-ar>جديد</span><span class="tag" data-en>NEW</span><span data-ar>مهارات التواصل الفعّال</span><span data-en>Effective Communication</span></div>
+    <div class="marquee-item"><span class="tag" data-ar>🔥 الأكثر مبيعاً</span><span class="tag" data-en>🔥 BESTSELLER</span><span data-ar>الإنجليزي للبيزنس</span><span data-en>Business English</span></div>
+    <div class="marquee-item"><span class="tag" data-ar>مباشر</span><span class="tag" data-en>LIVE</span><span data-ar>قيادة وتفكير نقدي</span><span data-en>Leadership & Critical Thinking</span></div>
+    <div class="marquee-item"><span class="tag" data-ar>مسجّل</span><span class="tag" data-en>RECORDED</span><span data-ar>بناء الثقة بالنفس</span><span data-en>Building Self-Confidence</span></div>
+    <div class="marquee-item"><span class="tag" data-ar>جديد</span><span class="tag" data-en>NEW</span><span data-ar>التفاوض والإقناع</span><span data-en>Negotiation & Persuasion</span></div>
+    <div class="marquee-item"><span class="tag" data-ar>🔥 الأكثر مبيعاً</span><span class="tag" data-en>🔥 HOT</span><span data-ar>إدارة الوقت والإنتاجية</span><span data-en>Time Management & Productivity</span></div>
+    <!-- duplicate for seamless loop -->
+    <div class="marquee-item"><span class="tag" data-ar>جديد</span><span class="tag" data-en>NEW</span><span data-ar>مهارات التواصل الفعّال</span><span data-en>Effective Communication</span></div>
+    <div class="marquee-item"><span class="tag" data-ar>🔥 الأكثر مبيعاً</span><span class="tag" data-en>🔥 BESTSELLER</span><span data-ar>الإنجليزي للبيزنس</span><span data-en>Business English</span></div>
+    <div class="marquee-item"><span class="tag" data-ar>مباشر</span><span class="tag" data-en>LIVE</span><span data-ar>قيادة وتفكير نقدي</span><span data-en>Leadership & Critical Thinking</span></div>
+    <div class="marquee-item"><span class="tag" data-ar>مسجّل</span><span class="tag" data-en>RECORDED</span><span data-ar>بناء الثقة بالنفس</span><span data-en>Building Self-Confidence</span></div>
+    <div class="marquee-item"><span class="tag" data-ar>جديد</span><span class="tag" data-en>NEW</span><span data-ar>التفاوض والإقناع</span><span data-en>Negotiation & Persuasion</span></div>
+    <div class="marquee-item"><span class="tag" data-ar>🔥 الأكثر مبيعاً</span><span class="tag" data-en>🔥 HOT</span><span data-ar>إدارة الوقت والإنتاجية</span><span data-en>Time Management & Productivity</span></div>
+  </div>
+</div>
+
+<!-- ─── WHY US ─── -->
+<section id="why">
+  <div class="reveal">
+    <div class="section-tag" data-ar>ليه Yalla Level؟</div>
+    <div class="section-tag" data-en>Why Yalla Level?</div>
+    <h2 class="section-title">
+      <span data-ar>مش بس كورسات —<br>ده تحوّل حقيقي</span>
+      <span data-en>Not Just Courses —<br>Real Transformation</span>
+    </h2>
+    <p class="section-sub">
+      <span data-ar>صنعنا Yalla Level للمصريين، بمحتوى يفهم تحدياتهم الفعلية وأسعار بتحترم جيبهم.</span>
+      <span data-en>We built Yalla Level for Egyptians, with content that understands their real challenges and prices that respect their wallet.</span>
+    </p>
+  </div>
+  <div class="why-grid">
+    <div class="why-card reveal reveal-delay-1">
+      <div class="why-icon">💰</div>
+      <h3 data-ar>أسعار بتحترم جيبك</h3>
+      <h3 data-en>Prices That Respect You</h3>
+      <p data-ar>مش هتلاقي كورسات زينا بالسعر ده. بنؤمن إن التعليم حق للكل مش امتياز.</p>
+      <p data-en>You won't find courses like ours at this price. We believe education is a right, not a privilege.</p>
+    </div>
+    <div class="why-card reveal reveal-delay-2">
+      <div class="why-icon">🇪🇬</div>
+      <h3 data-ar>محتوى مصري 100%</h3>
+      <h3 data-en>100% Egyptian Content</h3>
+      <p data-ar>الأمثلة والسياق والمدربين كلهم مصريين. بتحس إن الكورس اتعمل عشانك بالظبط.</p>
+      <p data-en>Examples, context, and instructors are all Egyptian. You'll feel like the course was made exactly for you.</p>
+    </div>
+    <div class="why-card reveal reveal-delay-3">
+      <div class="why-icon">🗣️</div>
+      <h3 data-ar>تركيز على الإنجليزي</h3>
+      <h3 data-en>English Focus</h3>
+      <p data-ar>الإنجليزي هو مفتاح أفضل وظيفة، أعلى راتب، وفرص أكبر. إحنا عارفين ده وبنبني عليه.</p>
+      <p data-en>English is the key to a better job, higher salary, and bigger opportunities. We know this and build around it.</p>
+    </div>
+    <div class="why-card reveal reveal-delay-4">
+      <div class="why-icon">⚡</div>
+      <h3 data-ar>لايف + مسجّل</h3>
+      <h3 data-en>Live + Recorded</h3>
+      <p data-ar>اختار الطريقة اللي بتناسبك: حضور مباشر مع المدرب أو كورسات مسجّلة تتابعها بوقتك.</p>
+      <p data-en>Choose what works for you: live sessions with instructors or recorded courses you follow at your own pace.</p>
+    </div>
+    <div class="why-card reveal reveal-delay-1">
+      <div class="why-icon">🎯</div>
+      <h3 data-ar>نتايج حقيقية</h3>
+      <h3 data-en>Real Results</h3>
+      <p data-ar>مش هنضيع وقتك بنظريات. كل كورس مصمم عشان يوصلك لنتيجة ملموسة سريعاً.</p>
+      <p data-en>We won't waste your time with theory. Every course is designed to get you to a tangible result, fast.</p>
+    </div>
+    <div class="why-card reveal reveal-delay-2">
+      <div class="why-icon">🤝</div>
+      <h3 data-ar>كوميونيتي داعمة</h3>
+      <h3 data-en>Supportive Community</h3>
+      <p data-ar>انضم لآلاف المصريين اللي بيسعوا يطوّروا نفسهم. التحفيز الحقيقي بيجي من جوّك.</p>
+      <p data-en>Join thousands of Egyptians who are leveling up. Real motivation comes from your circle.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── COURSES ─── -->
+<section id="courses" class="courses-section">
+  <div class="reveal courses-header">
+    <div>
+      <div class="section-tag" data-ar>الكورسات</div>
+      <div class="section-tag" data-en>Courses</div>
+      <h2 class="section-title">
+        <span data-ar>ابدأ رحلتك دلوقتي</span>
+        <span data-en>Start Your Journey Now</span>
+      </h2>
+      <p class="section-sub">
+        <span data-ar>اختار من مجموعة كورسات مصممة خصيصاً تناسب احتياجاتك.</span>
+        <span data-en>Pick from a range of courses designed specifically to match your needs.</span>
+      </p>
+    </div>
+    <a href="#" class="btn-secondary" style="white-space:nowrap">
+      <span data-ar>كل الكورسات</span>
+      <span data-en>All Courses</span>
+    </a>
+  </div>
+
+  <div class="courses-grid">
+
+    <a href="#" class="course-card reveal reveal-delay-1">
+      <div class="course-thumb course-thumb-1">
+        <span>🗣️</span>
+        <span class="course-badge" data-ar>🔥 الأكثر مبيعاً</span>
+        <span class="course-badge" data-en>🔥 Bestseller</span>
+      </div>
+      <div class="course-body">
+        <div class="course-cat" data-ar>إنجليزي</div>
+        <div class="course-cat" data-en>English</div>
+        <h3 data-ar>إنجليزي للبيزنس: من الصفر للاحتراف</h3>
+        <h3 data-en>Business English: Zero to Pro</h3>
+        <p data-ar>تكلّم إنجليزي في الشغل بثقة — الإيميلات، الاجتماعات، والعروض التقديمية.</p>
+        <p data-en>Speak English at work with confidence — emails, meetings, and presentations.</p>
+        <div class="course-meta">
+          <div class="course-info">
+            <span data-ar>⏱ 8 ساعات</span><span data-en>⏱ 8 Hours</span>
+            <span data-ar>📹 مسجّل</span><span data-en>📹 Recorded</span>
+          </div>
+          <div class="course-price">149 <del data-ar>299ج</del><del data-en>299 EGP</del></div>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="course-card reveal reveal-delay-2">
+      <div class="course-thumb course-thumb-2">
+        <span>👑</span>
+      </div>
+      <div class="course-body">
+        <div class="course-cat" data-ar>قيادة</div>
+        <div class="course-cat" data-en>Leadership</div>
+        <h3 data-ar>فن القيادة: كيف تأثر في الناس</h3>
+        <h3 data-en>The Art of Leadership: How to Influence</h3>
+        <p data-ar>كورس عملي في القيادة والتأثير، مناسب لأي حد عايز يقود فريق أو يبدأ مشروعه.</p>
+        <p data-en>A practical course in leadership and influence, for anyone who wants to lead a team or start a project.</p>
+        <div class="course-meta">
+          <div class="course-info">
+            <span data-ar>⏱ 6 ساعات</span><span data-en>⏱ 6 Hours</span>
+            <span data-ar>🔴 لايف</span><span data-en>🔴 Live</span>
+          </div>
+          <div class="course-price">199 <del data-ar>399ج</del><del data-en>399 EGP</del></div>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="course-card reveal reveal-delay-3">
+      <div class="course-thumb course-thumb-3">
+        <span>🧠</span>
+        <span class="course-badge" data-ar>جديد</span>
+        <span class="course-badge" data-en>New</span>
+      </div>
+      <div class="course-body">
+        <div class="course-cat" data-ar>تطوير الذات</div>
+        <div class="course-cat" data-en>Personal Development</div>
+        <h3 data-ar>بناء الثقة بالنفس وتغيير العقلية</h3>
+        <h3 data-en>Build Self-Confidence & Shift Your Mindset</h3>
+        <p data-ar>اتعلم ازاي تتعامل مع الخوف وتبني ثقتك وتغير الطريقة اللي بتفكر بيها.</p>
+        <p data-en>Learn how to deal with fear, build your confidence, and change the way you think.</p>
+        <div class="course-meta">
+          <div class="course-info">
+            <span data-ar>⏱ 5 ساعات</span><span data-en>⏱ 5 Hours</span>
+            <span data-ar>📹 مسجّل</span><span data-en>📹 Recorded</span>
+          </div>
+          <div class="course-price">99 <del data-ar>199ج</del><del data-en>199 EGP</del></div>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="course-card reveal">
+      <div class="course-thumb course-thumb-4">
+        <span>⚡</span>
+      </div>
+      <div class="course-body">
+        <div class="course-cat" data-ar>إنتاجية</div>
+        <div class="course-cat" data-en>Productivity</div>
+        <h3 data-ar>إدارة الوقت والإنتاجية الفعلية</h3>
+        <h3 data-en>Real Time Management & Productivity</h3>
+        <p data-ar>مش نظريات — أدوات وأنظمة حقيقية تخليك تنجز ضعف اللي بتنجزه دلوقتي.</p>
+        <p data-en>Not theory — real tools and systems to get you doing twice what you do now.</p>
+        <div class="course-meta">
+          <div class="course-info">
+            <span data-ar>⏱ 4 ساعات</span><span data-en>⏱ 4 Hours</span>
+            <span data-ar>📹 مسجّل</span><span data-en>📹 Recorded</span>
+          </div>
+          <div class="course-price">99 <del data-ar>199ج</del><del data-en>199 EGP</del></div>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="course-card reveal reveal-delay-1">
+      <div class="course-thumb course-thumb-5">
+        <span>🤝</span>
+      </div>
+      <div class="course-body">
+        <div class="course-cat" data-ar>تواصل</div>
+        <div class="course-cat" data-en>Communication</div>
+        <h3 data-ar>مهارات التفاوض والإقناع</h3>
+        <h3 data-en>Negotiation & Persuasion Skills</h3>
+        <p data-ar>تعلّم ازاي تقنع وتتفاوض في الشغل والحياة — مهارة بتفتح أبواب.</p>
+        <p data-en>Learn to persuade and negotiate at work and in life — a skill that opens doors.</p>
+        <div class="course-meta">
+          <div class="course-info">
+            <span data-ar>⏱ 5 ساعات</span><span data-en>⏱ 5 Hours</span>
+            <span data-ar>🔴 لايف</span><span data-en>🔴 Live</span>
+          </div>
+          <div class="course-price">179 <del data-ar>349ج</del><del data-en>349 EGP</del></div>
+        </div>
+      </div>
+    </a>
+
+    <a href="#" class="course-card reveal reveal-delay-2">
+      <div class="course-thumb course-thumb-6">
+        <span>🎤</span>
+        <span class="course-badge" data-ar>🔥 الأكثر مبيعاً</span>
+        <span class="course-badge" data-en>🔥 Hot</span>
+      </div>
+      <div class="course-body">
+        <div class="course-cat" data-ar>تواصل</div>
+        <div class="course-cat" data-en>Communication</div>
+        <h3 data-ar>التحدث أمام الجمهور بثقة</h3>
+        <h3 data-en>Public Speaking with Confidence</h3>
+        <p data-ar>خليك الشخص اللي لما يتكلم الكل بيسمع — كورس في فن الكلام والعرض.</p>
+        <p data-en>Become the person everyone listens to — a course in the art of speaking and presenting.</p>
+        <div class="course-meta">
+          <div class="course-info">
+            <span data-ar>⏱ 7 ساعات</span><span data-en>⏱ 7 Hours</span>
+            <span data-ar>📹 مسجّل</span><span data-en>📹 Recorded</span>
+          </div>
+          <div class="course-price">149 <del data-ar>299ج</del><del data-en>299 EGP</del></div>
+        </div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- ─── HOW IT WORKS ─── -->
+<section id="how">
+  <div class="reveal" style="text-align:center; max-width:600px; margin:0 auto 0;">
+    <div class="section-tag" data-ar>الخطوات</div>
+    <div class="section-tag" data-en>The Steps</div>
+    <h2 class="section-title">
+      <span data-ar>أبسط من ما تتخيل</span>
+      <span data-en>Simpler Than You Think</span>
+    </h2>
+    <p class="section-sub" style="margin:0 auto">
+      <span data-ar>4 خطوات بس وتبدأ رحلة تطويرك الحقيقية.</span>
+      <span data-en>Just 4 steps and your real development journey begins.</span>
+    </p>
+  </div>
+  <div class="steps-container">
+    <div class="step reveal">
+      <div class="step-num">١</div>
+      <h3 data-ar>اختار الكورس</h3>
+      <h3 data-en>Pick a Course</h3>
+      <p data-ar>اتصفّح الكورسات واختار اللي يناسب هدفك دلوقتي.</p>
+      <p data-en>Browse the catalog and pick what matches your current goal.</p>
+    </div>
+    <div class="step reveal reveal-delay-1">
+      <div class="step-num">٢</div>
+      <h3 data-ar>سجّل بسهولة</h3>
+      <h3 data-en>Register Easily</h3>
+      <p data-ar>تسجيل سريع في ثواني بدون تعقيد.</p>
+      <p data-en>Quick registration in seconds, no complications.</p>
+    </div>
+    <div class="step reveal reveal-delay-2">
+      <div class="step-num">٣</div>
+      <h3 data-ar>ابدأ التعلم</h3>
+      <h3 data-en>Start Learning</h3>
+      <p data-ar>اتعلم في وقتك أو انضم للجلسات المباشرة.</p>
+      <p data-en>Learn at your own pace or join the live sessions.</p>
+    </div>
+    <div class="step reveal reveal-delay-3">
+      <div class="step-num">٤</div>
+      <h3 data-ar>ارتقي للمستوى الجاي</h3>
+      <h3 data-en>Level Up</h3>
+      <p data-ar>طبّق اللي اتعلمته واحصل على شهادتك.</p>
+      <p data-en>Apply what you've learned and get your certificate.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── TESTIMONIALS ─── -->
+<section id="reviews" class="testi-section">
+  <div class="reveal" style="text-align:center; max-width:600px; margin:0 auto 60px;">
+    <div class="section-tag" data-ar>آراء الطلاب</div>
+    <div class="section-tag" data-en>Student Reviews</div>
+    <h2 class="section-title">
+      <span data-ar>ناس زيّك غيّرت حياتها</span>
+      <span data-en>People Like You Changed Their Lives</span>
+    </h2>
+  </div>
+  <div class="testi-grid">
+    <div class="testi-card reveal">
+      <div class="stars">★★★★★</div>
+      <div class="testi-quote">"</div>
+      <p class="testi-text" data-ar>كورس الإنجليزي للبيزنس غيّر حياتي بجد. بعد شهر بقيت بكلّم العملاء الأجانب بثقة وعملت ترقية في الشغل.</p>
+      <p class="testi-text" data-en>The Business English course genuinely changed my life. After a month, I was speaking to foreign clients confidently and got a promotion at work.</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:#FF3D00">ا.م</div>
+        <div>
+          <div class="testi-name" data-ar>أحمد محمود</div>
+          <div class="testi-name" data-en>Ahmed Mahmoud</div>
+          <div class="testi-role" data-ar>موظف مبيعات — القاهرة</div>
+          <div class="testi-role" data-en>Sales Associate — Cairo</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testi-card reveal reveal-delay-1">
+      <div class="stars">★★★★★</div>
+      <div class="testi-quote">"</div>
+      <p class="testi-text" data-ar>الأسعار مش بتتصدق! كورسات بجودة عالية جداً وبمحتوى مفيد جداً، وكل حاجة بالمصري اللي بنفهمه. أنصح بيه جداً.</p>
+      <p class="testi-text" data-en>The prices are unbelievable! Very high quality courses with genuinely useful content, all in the Egyptian dialect we understand. Highly recommend.</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:#FFD600;color:#000">س.ك</div>
+        <div>
+          <div class="testi-name" data-ar>سارة كمال</div>
+          <div class="testi-name" data-en>Sara Kamal</div>
+          <div class="testi-role" data-ar>خريجة حديثة — الإسكندرية</div>
+          <div class="testi-role" data-en>Recent Graduate — Alexandria</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testi-card reveal reveal-delay-2">
+      <div class="stars">★★★★★</div>
+      <div class="testi-quote">"</div>
+      <p class="testi-text" data-ar>كورس بناء الثقة بالنفس كان بالظبط اللي محتاجه. المحتوى عملي ومحسوس، والمدرب بيتكلم بأسلوب بنفهمه ومش بعيد عنا.</p>
+      <p class="testi-text" data-en>The self-confidence course was exactly what I needed. The content is practical and tangible, and the instructor speaks in a way we understand — not distant.</p>
+      <div class="testi-author">
+        <div class="testi-avatar" style="background:#7B2FFF">م.ع</div>
+        <div>
+          <div class="testi-name" data-ar>مصطفى عبدالله</div>
+          <div class="testi-name" data-en>Mostafa Abdallah</div>
+          <div class="testi-role" data-ar>رائد أعمال — المنصورة</div>
+          <div class="testi-role" data-en>Entrepreneur — Mansoura</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PRICING ─── -->
+<section id="pricing" style="background: var(--surface);">
+  <div class="reveal" style="text-align:center; max-width:600px; margin:0 auto 60px;">
+    <div class="section-tag" data-ar>الأسعار</div>
+    <div class="section-tag" data-en>Pricing</div>
+    <h2 class="section-title">
+      <span data-ar>استثمار بسيط، تحوّل كبير</span>
+      <span data-en>Small Investment, Big Transformation</span>
+    </h2>
+    <p class="section-sub" style="margin:0 auto">
+      <span data-ar>كل الخطط بتشمل كورسات عالية الجودة بأسعار منطقية تماماً.</span>
+      <span data-en>All plans include high-quality courses at completely reasonable prices.</span>
+    </p>
+  </div>
+  <div class="pricing-grid">
+
+    <div class="price-card reveal">
+      <div class="price-plan" data-ar>كورس واحد</div>
+      <div class="price-plan" data-en>Single Course</div>
+      <div class="price-amount">
+        <span class="price-currency" data-ar>ج.م</span>
+        <span class="price-currency" data-en>EGP</span>
+        <span class="price-num">99+</span>
+      </div>
+      <p class="price-desc" data-ar>اختار أي كورس وادفع مرة واحدة — وصول مدى الحياة.</p>
+      <p class="price-desc" data-en>Pick any course and pay once — lifetime access.</p>
+      <ul class="price-features">
+        <li data-ar>وصول مدى الحياة للكورس</li>
+        <li data-en>Lifetime access to the course</li>
+        <li data-ar>شهادة إتمام معتمدة</li>
+        <li data-en>Completion certificate</li>
+        <li data-ar>مواد الكورس والتمارين</li>
+        <li data-en>Course materials & exercises</li>
+        <li data-ar>دعم من المدرب</li>
+        <li data-en>Instructor support</li>
+      </ul>
+      <button class="btn-price btn-price-outline" data-ar>ابدأ الآن</button>
+      <button class="btn-price btn-price-outline" data-en>Start Now</button>
+    </div>
+
+    <div class="price-card featured reveal reveal-delay-1">
+      <div class="featured-tag" data-ar>⭐ الأكثر طلباً</div>
+      <div class="featured-tag" data-en>⭐ Most Popular</div>
+      <div class="price-plan" data-ar>باقة شهرية</div>
+      <div class="price-plan" data-en>Monthly Bundle</div>
+      <div class="price-amount">
+        <span class="price-currency" data-ar>ج.م</span>
+        <span class="price-currency" data-en>EGP</span>
+        <span class="price-num">249</span>
+        <span class="price-period" data-ar>/شهر</span>
+        <span class="price-period" data-en>/mo</span>
+      </div>
+      <p class="price-desc" data-ar>وصول غير محدود لكل الكورسات المسجّلة + خصم على الجلسات المباشرة.</p>
+      <p class="price-desc" data-en>Unlimited access to all recorded courses + discount on live sessions.</p>
+      <ul class="price-features">
+        <li data-ar>كل الكورسات المسجّلة بلا حدود</li>
+        <li data-en>All recorded courses unlimited</li>
+        <li data-ar>خصم 30% على الجلسات المباشرة</li>
+        <li data-en>30% off on live sessions</li>
+        <li data-ar>شهادات لكل الكورسات</li>
+        <li data-en>Certificates for all courses</li>
+        <li data-ar>أولوية في الكورسات الجديدة</li>
+        <li data-en>Priority on new courses</li>
+        <li data-ar>وصول للكوميونيتي الخاصة</li>
+        <li data-en>Access to private community</li>
+      </ul>
+      <button class="btn-price btn-price-solid" data-ar>اشترك دلوقتي</button>
+      <button class="btn-price btn-price-solid" data-en>Subscribe Now</button>
+    </div>
+
+    <div class="price-card reveal reveal-delay-2">
+      <div class="price-plan" data-ar>باقة سنوية</div>
+      <div class="price-plan" data-en>Annual Bundle</div>
+      <div class="price-amount">
+        <span class="price-currency" data-ar>ج.م</span>
+        <span class="price-currency" data-en>EGP</span>
+        <span class="price-num">1999</span>
+        <span class="price-period" data-ar>/سنة</span>
+        <span class="price-period" data-en>/yr</span>
+      </div>
+      <p class="price-desc" data-ar>وفّر 33% بالاشتراك السنوي — أفضل قرار لو جادّ في التطوير.</p>
+      <p class="price-desc" data-en>Save 33% with annual subscription — the best choice if you're serious about development.</p>
+      <ul class="price-features">
+        <li data-ar>كل مزايا الباقة الشهرية</li>
+        <li data-en>Everything in Monthly bundle</li>
+        <li data-ar>جلسة كوتشينج شخصية مجانية</li>
+        <li data-en>Free personal coaching session</li>
+        <li data-ar>وصول للـ live sessions كلها</li>
+        <li data-en>Access to all live sessions</li>
+        <li data-ar>توصيات تعلم مخصصة ليك</li>
+        <li data-en>Personalized learning recommendations</li>
+      </ul>
+      <button class="btn-price btn-price-outline" data-ar>احجز مكانك</button>
+      <button class="btn-price btn-price-outline" data-en>Reserve Your Spot</button>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── CTA BANNER ─── -->
+<section style="padding: 100px 5%;">
+  <div class="cta-banner reveal">
+    <h2>
+      <span data-ar>جاهز تعمل نقلتك؟</span>
+      <span data-en>Ready to Make Your Move?</span>
+    </h2>
+    <p>
+      <span data-ar>انضم لآلاف المصريين اللي بيغيّروا حياتهم — ابدأ دلوقتي.</span>
+      <span data-en>Join thousands of Egyptians who are changing their lives — start right now.</span>
+    </p>
+    <a href="#pricing" class="btn-white">
+      <span data-ar>يلا نبدأ ⚡</span>
+      <span data-en>Let's Go ⚡</span>
+    </a>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="logo">Yalla <span>Level</span><span class="dot">.</span></a>
+      <p data-ar>منصة تعليمية مصرية 100% لتطوير المهارات الإنسانية والإنجليزي بأسعار في متناول الجميع.</p>
+      <p data-en>100% Egyptian learning platform for developing human skills and English at prices accessible to everyone.</p>
+    </div>
+    <div class="footer-col">
+      <h4 data-ar>الكورسات</h4>
+      <h4 data-en>Courses</h4>
+      <ul>
+        <li><a href="#"><span data-ar>إنجليزي للبيزنس</span><span data-en>Business English</span></a></li>
+        <li><a href="#"><span data-ar>مهارات القيادة</span><span data-en>Leadership Skills</span></a></li>
+        <li><a href="#"><span data-ar>ثقة بالنفس</span><span data-en>Self Confidence</span></a></li>
+        <li><a href="#"><span data-ar>الإنتاجية</span><span data-en>Productivity</span></a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4 data-ar>الشركة</h4>
+      <h4 data-en>Company</h4>
+      <ul>
+        <li><a href="#"><span data-ar>من إحنا</span><span data-en>About Us</span></a></li>
+        <li><a href="#"><span data-ar>المدربين</span><span data-en>Instructors</span></a></li>
+        <li><a href="#"><span data-ar>المدوّنة</span><span data-en>Blog</span></a></li>
+        <li><a href="#"><span data-ar>تواصل معنا</span><span data-en>Contact Us</span></a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4 data-ar>تابعنا</h4>
+      <h4 data-en>Follow Us</h4>
+      <ul>
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">TikTok</a></li>
+        <li><a href="#">LinkedIn</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span data-ar>© 2025 Yalla Level. كل الحقوق محفوظة.</span>
+    <span data-en>© 2025 Yalla Level. All rights reserved.</span>
+    <span data-ar>صنع بـ ❤️ في مصر</span>
+    <span data-en>Made with ❤️ in Egypt</span>
+  </div>
+</footer>
+
+<script>
+  // ─── LANGUAGE TOGGLE ───
+  function toggleLang() {
+    const body = document.getElementById('body');
+    const btn = document.getElementById('lang-btn');
+    const isAr = body.classList.contains('ar');
+
+    if (isAr) {
+      body.classList.remove('ar');
+      body.classList.add('en');
+      body.setAttribute('lang', 'en');
+      body.setAttribute('dir', 'ltr');
+      btn.textContent = 'عربي';
+    } else {
+      body.classList.remove('en');
+      body.classList.add('ar');
+      body.setAttribute('lang', 'ar');
+      body.setAttribute('dir', 'rtl');
+      btn.textContent = 'English';
+    }
+  }
+
+  // ─── SCROLL REVEAL ───
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  // ─── NAVBAR SHRINK ON SCROLL ───
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    if (window.scrollY > 50) {
+      nav.style.padding = '12px 5%';
+    } else {
+      nav.style.padding = '20px 5%';
+    }
+  });
+
+  // ─── COUNTER ANIMATION ───
+  function animateCounters() {
+    document.querySelectorAll('.stat-num span').forEach(el => {
+      const target = parseInt(el.textContent);
+      if (isNaN(target)) return;
+      let start = 0;
+      const duration = 1500;
+      const step = target / (duration / 16);
+      const counter = setInterval(() => {
+        start += step;
+        if (start >= target) {
+          el.textContent = target.toLocaleString();
+          clearInterval(counter);
+        } else {
+          el.textContent = Math.floor(start).toLocaleString();
+        }
+      }, 16);
+    });
+  }
+
+  const heroObserver = new IntersectionObserver((entries) => {
+    if (entries[0].isIntersecting) {
+      setTimeout(animateCounters, 600);
+      heroObserver.disconnect();
+    }
+  });
+  heroObserver.observe(document.querySelector('.hero-stats'));
+</script>
+
+</body>
+</html>
