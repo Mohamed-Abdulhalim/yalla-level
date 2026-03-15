@@ -1007,21 +1007,142 @@
   .en [data-en] { display: revert !important; }
 
   /* ─── RESPONSIVE ─── */
+
+  /* Prevent any horizontal overflow globally */
+  html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
   @media (max-width: 768px) {
+
+    /* NAV */
+    nav {
+      padding: 14px 4%;
+      gap: 10px;
+    }
     .nav-links { display: none; }
-    .footer-grid { grid-template-columns: 1fr 1fr; }
-    .hero-stats { gap: 24px; }
+    .nav-right { gap: 8px; }
+    .lang-toggle {
+      padding: 7px 14px;
+      font-size: 0.78rem;
+    }
+    .btn-nav {
+      padding: 8px 16px;
+      font-size: 0.82rem;
+    }
+
+    /* HERO */
+    .hero {
+      padding: 120px 5% 60px;
+      text-align: center;
+    }
+    h1 {
+      font-size: clamp(2.2rem, 9vw, 3.2rem);
+      letter-spacing: -1px;
+      word-break: keep-all;
+    }
+    .ar h1 { font-size: clamp(2rem, 8vw, 3rem); line-height: 1.25; }
+    .hero-sub {
+      font-size: 0.95rem;
+      padding: 0 4px;
+    }
+    .hero-cta {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+      width: 100%;
+      max-width: 340px;
+      margin: 0 auto;
+    }
+    .btn-primary, .btn-secondary {
+      width: 100%;
+      justify-content: center;
+      padding: 16px 24px;
+      font-size: 0.95rem;
+    }
+    .hero-stats {
+      gap: 16px 28px;
+      margin-top: 48px;
+      padding-top: 32px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
     .stat-divider { display: none; }
-    .cta-banner { padding: 50px 24px; }
-    .cta-banner::before { font-size: 5rem; }
+    .stat-num { font-size: 1.7rem; }
+
+    /* SECTIONS */
+    section { padding: 70px 5%; }
+    .section-title { font-size: clamp(1.6rem, 6vw, 2.2rem); }
+
+    /* WHY GRID */
+    .why-grid { grid-template-columns: 1fr; gap: 14px; }
+    .why-card { padding: 28px 24px; }
+
+    /* COURSES */
+    .courses-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .courses-grid { grid-template-columns: 1fr; }
+    .course-thumb { height: 160px; }
+
+    /* HOW IT WORKS */
+    .steps-container { grid-template-columns: 1fr; gap: 0; }
+    .step { padding: 28px 24px; }
+    .step:not(:last-child)::after { display: none; }
+
+    /* TESTIMONIALS */
+    .testi-grid { grid-template-columns: 1fr; }
+
+    /* PRICING */
+    .pricing-grid {
+      grid-template-columns: 1fr;
+      max-width: 100%;
+    }
+    .price-card { padding: 32px 28px; }
+    .price-card.featured { margin-top: 20px; }
+
+    /* CTA BANNER */
+    .cta-banner {
+      margin: 0 4%;
+      padding: 50px 28px;
+    }
+    .cta-banner::before { font-size: 4rem; }
+    .cta-banner h2 { font-size: 1.6rem; }
+    .cta-banner .btn-white {
+      padding: 16px 36px;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    /* FOOTER */
+    .footer-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .footer-brand { grid-column: 1 / -1; }
   }
 
-  @media (max-width: 520px) {
+  @media (max-width: 480px) {
+    /* NAV — very small screens */
+    .btn-nav { display: none; } /* hide CTA in nav, enough on page */
+
+    /* HERO */
+    h1 { font-size: clamp(1.9rem, 8vw, 2.6rem); }
+    .ar h1 { font-size: clamp(1.8rem, 7.5vw, 2.4rem); }
+
+    /* FOOTER */
     .footer-grid { grid-template-columns: 1fr; }
-    h1 { font-size: 2.5rem; }
+    .footer-bottom {
+      flex-direction: column;
+      text-align: center;
+      gap: 8px;
+    }
+
+    /* PRICING */
+    .price-num { font-size: 2.8rem; }
   }
 
-  /* Mobile menu toggle */
+  /* Mobile menu toggle button */
   .menu-btn {
     display: none;
     background: none;
@@ -1036,8 +1157,43 @@
     width: 22px; height: 2px;
     background: var(--text);
     border-radius: 2px;
+    transition: all 0.3s;
   }
   @media (max-width: 768px) { .menu-btn { display: flex; } }
+
+  /* Mobile nav drawer */
+  .mobile-nav {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(28,25,23,0.98);
+    z-index: 850;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+    backdrop-filter: blur(20px);
+  }
+  .mobile-nav.open { display: flex; }
+  .mobile-nav a {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--text);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .mobile-nav a:hover { color: var(--primary); }
+  .mobile-nav-close {
+    position: absolute;
+    top: 24px; right: 24px;
+    background: none;
+    border: none;
+    color: var(--text-muted);
+    font-size: 1.8rem;
+    cursor: pointer;
+    line-height: 1;
+  }
+  .ar .mobile-nav-close { right: auto; left: 24px; }
 </style>
 </head>
 <body class="ar" id="body">
@@ -1059,8 +1215,28 @@
       <span data-ar>ابدأ دلوقتي</span>
       <span data-en>Get Started</span>
     </a>
+    <button class="menu-btn" onclick="openMobileNav()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+
+<!-- ─── MOBILE NAV DRAWER ─── -->
+<div class="mobile-nav" id="mobile-nav">
+  <button class="mobile-nav-close" onclick="closeMobileNav()">✕</button>
+  <a href="#courses" onclick="closeMobileNav()" data-ar>الكورسات</a>
+  <a href="#courses" onclick="closeMobileNav()" data-en>Courses</a>
+  <a href="#why" onclick="closeMobileNav()" data-ar>ليه إحنا؟</a>
+  <a href="#why" onclick="closeMobileNav()" data-en>Why Us?</a>
+  <a href="#how" onclick="closeMobileNav()" data-ar>إزاي بيشتغل</a>
+  <a href="#how" onclick="closeMobileNav()" data-en>How It Works</a>
+  <a href="#pricing" onclick="closeMobileNav()" data-ar>الأسعار</a>
+  <a href="#pricing" onclick="closeMobileNav()" data-en>Pricing</a>
+  <a href="#pricing" class="btn-primary" onclick="closeMobileNav()" style="margin-top:16px;text-align:center;justify-content:center;">
+    <span data-ar>ابدأ دلوقتي ⚡</span>
+    <span data-en>Get Started ⚡</span>
+  </a>
+</div>
 
 <!-- ─── HERO ─── -->
 <section class="hero">
@@ -1666,16 +1842,6 @@
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  // ─── NAVBAR SHRINK ON SCROLL ───
-  window.addEventListener('scroll', () => {
-    const nav = document.querySelector('nav');
-    if (window.scrollY > 50) {
-      nav.style.padding = '12px 5%';
-    } else {
-      nav.style.padding = '20px 5%';
-    }
-  });
-
   // ─── COUNTER ANIMATION ───
   function animateCounters() {
     document.querySelectorAll('.stat-num span').forEach(el => {
@@ -1703,6 +1869,35 @@
     }
   });
   heroObserver.observe(document.querySelector('.hero-stats'));
+
+  // ─── MOBILE NAV ───
+  function openMobileNav() {
+    document.getElementById('mobile-nav').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeMobileNav() {
+    document.getElementById('mobile-nav').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  // Close on backdrop click
+  document.getElementById('mobile-nav').addEventListener('click', function(e) {
+    if (e.target === this) closeMobileNav();
+  });
+  // Close on ESC
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeMobileNav();
+  });
+
+  // ─── NAVBAR SHRINK — mobile-aware ───
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    const isMobile = window.innerWidth <= 768;
+    if (window.scrollY > 50) {
+      nav.style.padding = isMobile ? '10px 4%' : '12px 5%';
+    } else {
+      nav.style.padding = isMobile ? '14px 4%' : '20px 5%';
+    }
+  });
 </script>
 
 </body>
