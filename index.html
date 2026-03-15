@@ -1215,7 +1215,7 @@
       <span data-ar>ابدأ دلوقتي</span>
       <span data-en>Get Started</span>
     </a>
-    <button class="menu-btn" onclick="openMobileNav()" aria-label="Menu">
+    <button class="menu-btn" onclick="openMobileNav()" id="menu-btn" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
   </div>
@@ -1872,9 +1872,15 @@
 
   // ─── MOBILE NAV ───
   function openMobileNav() {
-    document.getElementById('mobile-nav').classList.add('open');
-    document.body.style.overflow = 'hidden';
-  }
+      const nav = document.getElementById('mobile-nav');
+      const isOpen = nav.classList.contains('open');
+      if (isOpen) {
+        closeMobileNav();
+      } else {
+        nav.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+    }
   function closeMobileNav() {
     document.getElementById('mobile-nav').classList.remove('open');
     document.body.style.overflow = '';
