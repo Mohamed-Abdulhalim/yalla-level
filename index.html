@@ -849,6 +849,9 @@
     font-family: inherit;
     transition: all 0.25s;
     border: none;
+    display: block;
+    text-align: center;
+    text-decoration: none;
   }
   .btn-price-outline {
     background: transparent;
@@ -1194,6 +1197,44 @@
     line-height: 1;
   }
   .ar .mobile-nav-close { right: auto; left: 24px; }
+
+  /* ─── WHATSAPP FLOATING BUTTON ─── */
+  .wa-float {
+    position: fixed;
+    bottom: 28px;
+    z-index: 800;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #25D366;
+    color: white;
+    padding: 14px 22px 14px 18px;
+    border-radius: 100px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    text-decoration: none;
+    font-family: inherit;
+    box-shadow: 0 8px 32px rgba(37,211,102,0.35);
+    transition: all 0.25s;
+    direction: ltr;
+  }
+  .ar .wa-float { right: 24px; flex-direction: row-reverse; }
+  .en .wa-float { left: 24px; }
+  .wa-float:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 14px 40px rgba(37,211,102,0.5);
+    background: #1ebe5d;
+  }
+  .wa-float svg {
+    width: 22px; height: 22px;
+    flex-shrink: 0;
+  }
+  @media (max-width: 480px) {
+    .wa-float .wa-label { display: none; }
+    .wa-float { padding: 14px; border-radius: 50%; }
+    .ar .wa-float { right: 16px; bottom: 20px; }
+    .en .wa-float { left: 16px; bottom: 20px; }
+  }
 </style>
 </head>
 <body class="ar" id="body">
@@ -1211,11 +1252,11 @@
   </ul>
   <div class="nav-right">
     <button class="lang-toggle" onclick="toggleLang()" id="lang-btn">English</button>
-    <a href="#pricing" class="btn-nav">
+    <a href="https://wa.me/201554265712?text=السلام%20عليكم،%20عايز%20أعرف%20أكتر%20عن%20كورسات%20Yalla%20Level" target="_blank" class="btn-nav">
       <span data-ar>ابدأ دلوقتي</span>
       <span data-en>Get Started</span>
     </a>
-    <button class="menu-btn" onclick="openMobileNav()" id="menu-btn" aria-label="Menu">
+    <button class="menu-btn" onclick="openMobileNav()" aria-label="Menu">
       <span></span><span></span><span></span>
     </button>
   </div>
@@ -1232,7 +1273,7 @@
   <a href="#how" onclick="closeMobileNav()" data-en>How It Works</a>
   <a href="#pricing" onclick="closeMobileNav()" data-ar>الأسعار</a>
   <a href="#pricing" onclick="closeMobileNav()" data-en>Pricing</a>
-  <a href="#pricing" class="btn-primary" onclick="closeMobileNav()" style="margin-top:16px;text-align:center;justify-content:center;">
+  <a href="https://wa.me/201554265712?text=السلام%20عليكم،%20عايز%20أعرف%20أكتر%20عن%20كورسات%20Yalla%20Level" target="_blank" class="btn-primary" onclick="closeMobileNav()" style="margin-top:16px;text-align:center;justify-content:center;">
     <span data-ar>ابدأ دلوقتي ⚡</span>
     <span data-en>Get Started ⚡</span>
   </a>
@@ -1260,16 +1301,16 @@
       <span data-en>Learn soft skills, level up your English, and develop yourself with 100% Egyptian content at prices that actually make sense.</span>
     </p>
     <div class="hero-cta">
-      <a href="#courses" class="btn-primary">
-        <span data-ar>اكتشف الكورسات</span>
-        <span data-en>Explore Courses</span>
+      <a href="https://wa.me/201554265712?text=السلام%20عليكم،%20عايز%20أعرف%20أكتر%20عن%20كورسات%20Yalla%20Level" target="_blank" class="btn-primary">
+        <span data-ar>ابدأ دلوقتي على واتساب</span>
+        <span data-en>Start Now on WhatsApp</span>
         <svg class="arrow-icon" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </a>
-      <a href="#how" class="btn-secondary">
-        <span data-ar>إزاي بيشتغل؟</span>
-        <span data-en>How It Works</span>
+      <a href="#courses" class="btn-secondary">
+        <span data-ar>اكتشف الكورسات</span>
+        <span data-en>Explore Courses</span>
       </a>
     </div>
     <div class="hero-stats">
@@ -1680,8 +1721,8 @@
         <li data-ar>دعم من المدرب</li>
         <li data-en>Instructor support</li>
       </ul>
-      <button class="btn-price btn-price-outline" data-ar>ابدأ الآن</button>
-      <button class="btn-price btn-price-outline" data-en>Start Now</button>
+      <a href="https://wa.me/201554265712?text=عايز%20أسجّل%20في%20كورس%20منفرد%20على%20Yalla%20Level" target="_blank" class="btn-price btn-price-outline" data-ar>ابدأ الآن</a>
+      <a href="https://wa.me/201554265712?text=I%20want%20to%20enroll%20in%20a%20single%20course%20on%20Yalla%20Level" target="_blank" class="btn-price btn-price-outline" data-en>Start Now</a>
     </div>
 
     <div class="price-card featured reveal reveal-delay-1">
@@ -1710,8 +1751,8 @@
         <li data-ar>وصول للكوميونيتي الخاصة</li>
         <li data-en>Access to private community</li>
       </ul>
-      <button class="btn-price btn-price-solid" data-ar>اشترك دلوقتي</button>
-      <button class="btn-price btn-price-solid" data-en>Subscribe Now</button>
+      <a href="https://wa.me/201554265712?text=عايز%20أشترك%20في%20الباقة%20الشهرية%20على%20Yalla%20Level" target="_blank" class="btn-price btn-price-solid" data-ar>اشترك دلوقتي</a>
+      <a href="https://wa.me/201554265712?text=I%20want%20to%20subscribe%20to%20the%20Monthly%20Bundle%20on%20Yalla%20Level" target="_blank" class="btn-price btn-price-solid" data-en>Subscribe Now</a>
     </div>
 
     <div class="price-card reveal reveal-delay-2">
@@ -1736,8 +1777,8 @@
         <li data-ar>توصيات تعلم مخصصة ليك</li>
         <li data-en>Personalized learning recommendations</li>
       </ul>
-      <button class="btn-price btn-price-outline" data-ar>احجز مكانك</button>
-      <button class="btn-price btn-price-outline" data-en>Reserve Your Spot</button>
+      <a href="https://wa.me/201554265712?text=عايز%20أشترك%20في%20الباقة%20السنوية%20على%20Yalla%20Level" target="_blank" class="btn-price btn-price-outline" data-ar>احجز مكانك</a>
+      <a href="https://wa.me/201554265712?text=I%20want%20to%20subscribe%20to%20the%20Annual%20Bundle%20on%20Yalla%20Level" target="_blank" class="btn-price btn-price-outline" data-en>Reserve Your Spot</a>
     </div>
 
   </div>
@@ -1754,7 +1795,7 @@
       <span data-ar>انضم لآلاف المصريين اللي بيغيّروا حياتهم — ابدأ دلوقتي.</span>
       <span data-en>Join thousands of Egyptians who are changing their lives — start right now.</span>
     </p>
-    <a href="#pricing" class="btn-white">
+    <a href="https://wa.me/201554265712?text=السلام%20عليكم،%20عايز%20أعرف%20أكتر%20عن%20كورسات%20Yalla%20Level" target="_blank" class="btn-white">
       <span data-ar>يلا نبدأ ⚡</span>
       <span data-en>Let's Go ⚡</span>
     </a>
@@ -1872,15 +1913,9 @@
 
   // ─── MOBILE NAV ───
   function openMobileNav() {
-      const nav = document.getElementById('mobile-nav');
-      const isOpen = nav.classList.contains('open');
-      if (isOpen) {
-        closeMobileNav();
-      } else {
-        nav.classList.add('open');
-        document.body.style.overflow = 'hidden';
-      }
-    }
+    document.getElementById('mobile-nav').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
   function closeMobileNav() {
     document.getElementById('mobile-nav').classList.remove('open');
     document.body.style.overflow = '';
@@ -1905,6 +1940,15 @@
     }
   });
 </script>
+
+<!-- ─── WHATSAPP FLOATING BUTTON ─── -->
+<a href="https://wa.me/201554265712?text=السلام%20عليكم،%20عايز%20أعرف%20أكتر%20عن%20كورسات%20Yalla%20Level" target="_blank" class="wa-float" id="wa-float">
+  <svg viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+  <span class="wa-label" data-ar>كلمنا على واتساب</span>
+  <span class="wa-label" data-en>Chat on WhatsApp</span>
+</a>
 
 </body>
 </html>
