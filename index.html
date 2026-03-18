@@ -8,6 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&display=swap">
 <link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/checkout.css">
 </head>
 <body class="ar" id="body">
 
@@ -249,7 +250,7 @@
 
   <div class="courses-grid">
 
-    <div class="course-card course-card-featured reveal reveal-delay-1">
+    <div class="course-card course-card-featured reveal reveal-delay-1" onclick="openCheckout('business-english')" style="cursor:pointer;">
       <div class="course-thumb course-thumb-1">
         <span>🗣️</span>
         <span class="course-badge" data-ar>🔥 الأكثر مبيعاً</span>
@@ -754,6 +755,104 @@
   <span class="wa-label" data-ar>كلمنا على واتساب</span>
   <span class="wa-label" data-en>Chat on WhatsApp</span>
 </a>
-
+<script src="js/payment.js"></script>
+<div class="checkout-modal" id="checkout-modal">
+  <div class="checkout-backdrop" onclick="closeCheckout()"></div>
+  <div class="checkout-box">
+ 
+    <!-- Header -->
+    <div class="checkout-header">
+      <div class="checkout-course-info">
+        <div class="checkout-label" data-ar>إتمام الشراء</div>
+        <div class="checkout-label" data-en>Checkout</div>
+        <div class="checkout-course-name" id="checkout-course-name"></div>
+        <div class="checkout-price-row">
+          <span class="checkout-price" id="checkout-price"></span>
+          <span class="checkout-original-price" id="checkout-original-price"></span>
+        </div>
+      </div>
+      <button class="checkout-close" onclick="closeCheckout()">✕</button>
+    </div>
+ 
+    <!-- Step 1: Customer details + payment type -->
+    <div id="checkout-step-1" style="display:flex;">
+      <div class="checkout-field">
+        <label data-ar>اسمك</label>
+        <label data-en>Your Name</label>
+        <input
+          type="text"
+          id="checkout-name"
+          placeholder="مثال: أحمد محمود"
+          autocomplete="name"
+        />
+      </div>
+ 
+      <div class="checkout-field">
+        <label data-ar>رقم موبايلك</label>
+        <label data-en>Your Mobile Number</label>
+        <div class="phone-row">
+          <span class="prefix">+20</span>
+          <input
+            type="tel"
+            id="checkout-phone"
+            placeholder="1X XXXX XXXX"
+            maxlength="11"
+            inputmode="numeric"
+            autocomplete="tel"
+          />
+        </div>
+      </div>
+ 
+      <div class="checkout-field">
+        <div class="payment-type-label" data-ar>طريقة الدفع</div>
+        <div class="payment-type-label" data-en>Payment Method</div>
+        <div class="payment-type-options">
+          <div class="payment-type-option">
+            <input type="radio" name="payment-type" id="pt-card" value="card" checked />
+            <label for="pt-card">
+              <span class="pay-icon">💳</span>
+              <span data-ar>بطاقة / إنستاباي</span>
+              <span data-en>Card / InstaPay</span>
+            </label>
+          </div>
+          <div class="payment-type-option">
+            <input type="radio" name="payment-type" id="pt-wallet" value="wallet" />
+            <label for="pt-wallet">
+              <span class="pay-icon">📱</span>
+              <span data-ar>محفظة موبايل</span>
+              <span data-en>Mobile Wallet</span>
+            </label>
+          </div>
+        </div>
+        <p class="payment-type-note" data-ar>المحفظة: فودافون كاش، اورنج كاش، اتصالات كاش</p>
+        <p class="payment-type-note" data-en>Wallet: Vodafone Cash, Orange Cash, Etisalat Cash</p>
+      </div>
+ 
+      <div class="checkout-error" id="checkout-error"></div>
+ 
+      <button class="checkout-submit" id="checkout-submit" onclick="submitCheckout()">
+        <span data-ar>ادفع دلوقتي 🔒</span>
+        <span data-en>Pay Now 🔒</span>
+      </button>
+ 
+      <div class="checkout-guarantee">
+        🛡️
+        <span data-ar>مش عاجبك؟ فلوسك ترجعلك خلال 3 أيام</span>
+        <span data-en>Not happy? Full refund within 3 days</span>
+      </div>
+    </div>
+ 
+    <!-- Step 2: Paymob iFrame -->
+    <div id="checkout-step-2" style="display:none;">
+      <div class="iframe-header">
+        🔒
+        <span data-ar>الدفع الآمن عبر Paymob</span>
+        <span data-en>Secure payment via Paymob</span>
+      </div>
+      <iframe id="paymob-iframe" src="" title="Paymob Checkout" allowpaymentrequest></iframe>
+    </div>
+ 
+  </div>
+</div>
 </body>
 </html>
