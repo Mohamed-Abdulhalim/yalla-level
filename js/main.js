@@ -1,4 +1,4 @@
-<script>
+
   // ─── LANGUAGE TOGGLE ───
   function toggleLang() {
     const body = document.getElementById('body');
@@ -147,4 +147,4 @@
       nav.style.padding = isMobile ? '14px 4%' : '20px 5%';
     }
   });
-</script>
+
