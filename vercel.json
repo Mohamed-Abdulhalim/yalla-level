@@ -1,7 +1,9 @@
 {
+  "outputDirectory": ".",
+  "cleanUrls": true,
   "rewrites": [
     { "source": "/payment-success", "destination": "/public/payment-success.html" },
-    { "source": "/payment-failed",  "destination": "/public/payment-failed.html"  },
+    { "source": "/payment-failed", "destination": "/public/payment-failed.html" },
     { "source": "/payment-pending", "destination": "/public/payment-pending.html" }
   ]
 }
