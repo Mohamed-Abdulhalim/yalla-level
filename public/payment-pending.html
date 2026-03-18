@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>في انتظار الدفع — Yalla Level</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #1C1917;
+    color: #FAFAF9;
+    font-family: 'Cairo', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .card {
+    background: #242020;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 24px;
+    padding: 56px 48px;
+    text-align: center;
+    max-width: 480px;
+    width: 100%;
+  }
+  .icon {
+    width: 80px; height: 80px;
+    background: rgba(245,158,11,0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.4rem;
+    margin: 0 auto 28px;
+    border: 2px solid rgba(245,158,11,0.25);
+  }
+  h1 { font-size: 1.8rem; font-weight: 900; margin-bottom: 12px; }
+  p { color: #A8A29E; line-height: 1.75; font-size: 0.95rem; margin-bottom: 24px; }
+  .steps {
+    background: rgba(245,158,11,0.07);
+    border: 1px solid rgba(245,158,11,0.2);
+    border-radius: 16px;
+    padding: 24px;
+    text-align: right;
+    margin-bottom: 32px;
+  }
+  .step-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    font-size: 0.88rem;
+    color: #A8A29E;
+    margin-bottom: 12px;
+    line-height: 1.6;
+  }
+  .step-item:last-child { margin-bottom: 0; }
+  .step-num {
+    width: 24px; height: 24px;
+    background: rgba(245,158,11,0.2);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #F59E0B;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .back-link {
+    display: block;
+    color: #78716C;
+    font-size: 0.85rem;
+    text-decoration: none;
+    margin-top: 8px;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: #FAFAF9; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="icon">⏳</div>
+  <h1>في انتظار تأكيد الدفع</h1>
+  <p>اتولد كود فوري ليك. اتبع الخطوات دي عشان تكمل الدفع:</p>
+  <div class="steps">
+    <div class="step-item">
+      <div class="step-num">١</div>
+      <span>روح أي فرع فوري أو ماكينة فوري قريبة منك</span>
+    </div>
+    <div class="step-item">
+      <div class="step-num">٢</div>
+      <span>قول للكاشير إنك عايز تدفع فاتورة فوري — اديه الكود اللي وصلك</span>
+    </div>
+    <div class="step-item">
+      <div class="step-num">٣</div>
+      <span>بعد الدفع، هنبعتلك رسالة واتساب بتأكيد التسجيل في الكورس</span>
+    </div>
+  </div>
+  <a href="https://wa.me/201554265712?text=السلام%20عليكم،%20دفعت%20فوري%20وعايز%20أتأكد%20من%20التسجيل" target="_blank" style="display:inline-block;background:#25D366;color:white;padding:14px 28px;border-radius:100px;font-size:0.95rem;font-weight:700;text-decoration:none;font-family:inherit;margin-bottom:12px;">
+    تأكيد على واتساب
+  </a>
+  <a href="/" class="back-link">← رجوع للرئيسية</a>
+</div>
+</body>
+</html>

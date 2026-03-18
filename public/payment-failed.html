@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>فشل الدفع — Yalla Level</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #1C1917;
+    color: #FAFAF9;
+    font-family: 'Cairo', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .card {
+    background: #242020;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 24px;
+    padding: 56px 48px;
+    text-align: center;
+    max-width: 480px;
+    width: 100%;
+  }
+  .icon {
+    width: 80px; height: 80px;
+    background: rgba(239,68,68,0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.4rem;
+    margin: 0 auto 28px;
+    border: 2px solid rgba(239,68,68,0.25);
+  }
+  h1 { font-size: 1.8rem; font-weight: 900; margin-bottom: 12px; }
+  p { color: #A8A29E; line-height: 1.75; font-size: 0.95rem; margin-bottom: 32px; }
+  .retry-btn {
+    display: inline-block;
+    background: #7C3AED;
+    color: white;
+    padding: 16px 32px;
+    border-radius: 100px;
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    font-family: inherit;
+    transition: all 0.2s;
+    margin-bottom: 12px;
+  }
+  .retry-btn:hover { background: #6D28D9; transform: translateY(-2px); }
+  .whatsapp-link {
+    display: block;
+    color: #25D366;
+    font-size: 0.88rem;
+    text-decoration: none;
+    margin-top: 12px;
+    transition: opacity 0.2s;
+  }
+  .whatsapp-link:hover { opacity: 0.8; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="icon">❌</div>
+  <h1>مشكلة في الدفع</h1>
+  <p>
+    للأسف مش اتكملت عملية الدفع.<br>
+    ممكن تحاول تاني أو تتواصل معانا على واتساب ونساعدك.
+  </p>
+  <a href="/" class="retry-btn">حاول تاني</a>
+  <a href="https://wa.me/201554265712?text=السلام%20عليكم،%20واجهت%20مشكلة%20في%20الدفع%20على%20Yalla%20Level" target="_blank" class="whatsapp-link">
+    أو كلمنا على واتساب →
+  </a>
+</div>
+</body>
+</html>
